@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+
+        <record id="onehr_fa_manager" model="res.groups">
+            <field name="name">Fixed Assets Manager</field>
+        </record>
+
+        <record id="onehr_fa_users" model="res.groups">
+            <field name="name">Fixed Assets Users</field>
+        </record>
+
+    </data>
+</odoo>

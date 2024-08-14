@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="preparation_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="preparation_task_view_action" model="ir.actions.act_window">
+            <field name="name">Preparation</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','preparation')]</field>
+            <field name="view_id" ref="preparation_task_tree_view"/>
+        </record>
+
+        <record id="checking_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="checking_view_action" model="ir.actions.act_window">
+            <field name="name">Checking</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','checking')]</field>
+            <field name="view_id" ref="checking_task_tree_view"/>
+        </record>
+
+        <record id="review_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="review_view_action" model="ir.actions.act_window">
+            <field name="name">Review</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','review')]</field>
+            <field name="view_id" ref="review_task_tree_view"/>
+        </record>
+
+        <record id="initial_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="initial_approval_view_action" model="ir.actions.act_window">
+            <field name="name">Initial Approval</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','initial_approval')]</field>
+            <field name="view_id" ref="initial_task_tree_view"/>
+        </record>
+
+        <record id="proofread_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="proofread_view_action" model="ir.actions.act_window">
+            <field name="name">Proofread</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','proofread')]</field>
+            <field name="view_id" ref="proofread_task_tree_view"/>
+        </record>
+
+        <record id="final_checking_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="final_checking_view_action" model="ir.actions.act_window">
+            <field name="name">Final Checking</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','final_checking')]</field>
+            <field name="view_id" ref="final_checking_task_tree_view"/>
+        </record>
+
+        <record id="final_review_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="final_review_view_action" model="ir.actions.act_window">
+            <field name="name">Final Review</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','final_review')]</field>
+            <field name="view_id" ref="final_review_task_tree_view"/>
+        </record>
+
+        <record id="final_approval_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="final_approval_view_action" model="ir.actions.act_window">
+            <field name="name">Final Approval</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','final_approval')]</field>
+            <field name="view_id" ref="final_approval_task_tree_view"/>
+        </record>
+
+        <record id="final_proofread_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="final_proofread_view_action" model="ir.actions.act_window">
+            <field name="name">Final Proofread</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','final_proofread')]</field>
+            <field name="view_id" ref="final_proofread_task_tree_view"/>
+        </record>
+
+        <record id="iar_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="iar_view_action" model="ir.actions.act_window">
+            <field name="name">IAR Review</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','iar_review')]</field>
+            <field name="view_id" ref="iar_task_tree_view"/>
+        </record>
+
+        <record id="print_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="print_view_action" model="ir.actions.act_window">
+            <field name="name">For Print</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','printing')]</field>
+            <field name="view_id" ref="print_task_tree_view"/>
+        </record>
+
+        <record id="sort_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sort_view_action" model="ir.actions.act_window">
+            <field name="name">For Sort</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','sorting')]</field>
+            <field name="view_id" ref="sort_task_tree_view"/>
+        </record>
+
+        <record id="qcc_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="qcc_view_action" model="ir.actions.act_window">
+            <field name="name">Quality Control Check</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','qcc')]</field>
+            <field name="view_id" ref="qcc_task_tree_view"/>
+        </record>
+
+        <record id="file_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False" delete="False" export_xlsx="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="file_view_action" model="ir.actions.act_window">
+            <field name="name">For Filing</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','filing')]</field>
+            <field name="view_id" ref="file_task_tree_view"/>
+        </record>
+
+        <record id="filed_task_tree_view" model="ir.ui.view">
+            <field name="name">task.tree.view</field>
+            <field name="model">task.view</field>
+            <field name="arch" type="xml">
+                <tree create="False">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="total_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="filed_view_action" model="ir.actions.act_window">
+            <field name="name">For Filed</field>
+            <field name="res_model">task.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','filed')]</field>
+            <field name="view_id" ref="filed_task_tree_view"/>
+        </record>
+    </data>
+</odoo>

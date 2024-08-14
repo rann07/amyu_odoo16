@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="capitalization_share_tree_view" model="ir.ui.view">
+            <field name="name">capitalization.share.tree.view</field>
+            <field name="model">capitalization.share</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="par_value"/>
+                    <field name="authorized_no"/>
+                    <field name="authorized_amount"/>
+                    <field name="subscribed_no"/>
+                    <field name="subscribed_amount"/>
+                    <field name="treasury_no"/>
+                    <field name="treasury_amount"/>
+                    <field name="paid_up_no"/>
+                    <field name="paid_up_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="capital_domestic_nsnp_tree_view" model="ir.ui.view">
+            <field name="name">capital.domestic.nsnp.tree.view</field>
+            <field name="model">capital.domestic.nsnp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="capital_foreign_corp_tree_view" model="ir.ui.view">
+            <field name="name">capital.foreign.corp.tree.view</field>
+            <field name="model">capital.foreign.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="capital_foreign_nsnp_corp_tree_view" model="ir.ui.view">
+            <field name="name">capital.foreign.nsnp.corp.tree.view</field>
+            <field name="model">capital.foreign.nsnp.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="capital_general_partnership_tree_view" model="ir.ui.view">
+            <field name="name">capital.general.partnership.tree.view</field>
+            <field name="model">capital.general.partnership</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="capital_contribution_amount"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="capital_general_professional_partnership_tree_view" model="ir.ui.view">
+            <field name="name">capital.general.professional.partnership.tree.view</field>
+            <field name="model">capital.general.professional.partnership</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="capital_contribution_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="capital_representative_office_tree_view" model="ir.ui.view">
+            <field name="name">capital.representative.office.tree.view</field>
+            <field name="model">capital.representative.office</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="capital_roqh_foreign_corp_tree_view" model="ir.ui.view">
+            <field name="name">capital.roqh.foreign.corp.tree.view</field>
+            <field name="model">capital.roqh.foreign.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="capital_sole_proprietor_tree_view" model="ir.ui.view">
+            <field name="name">capital.sole.proprietor.tree.view</field>
+            <field name="model">capital.sole.proprietor</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
+

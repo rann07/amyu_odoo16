@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="arjournal_report_template">
+        <t t-call="web.html_container">
+            <div class="header">
+                <img src="/bcs/static/src/img/MicrosoftTeams-image.png"
+                     style="height:200px;width:300px;left:20px;bottom:500px;middle:50px" class="float-start"
+                     alt="Logo"/>
+            </div>
+
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="bcs.arjournal_report_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="arjournal_report_document">
+        <t t-call="web.external_layout">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <table style="font-size:10px;" width="50%">
+                <tr>
+                    <td>
+                        Statement Number:
+                    </td>
+                    <td>
+                        <!--                        <span t-field="doc.client_id"/>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Client Number:
+                    </td>
+                    <td>
+                        <!--                        <span t-field="doc.balance"/>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Billing Date:
+                    </td>
+                    <td>
+                        <!--                        <span t-field="doc.balance"/>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Billing Number:
+                    </td>
+                    <td>
+                        <!--                        <span t-field="doc.balance"/>-->
+                    </td>
+                </tr>
+            </table>
+            <table style="font-size:10px;" width="100%">
+                <h5>
+                    <p style="text-center;">ACCOUNTS RECEIVABLE SUMMARY</p>
+                </h5>
+                <tr>
+                    <td>SOA No.</td>
+                    <td>SOA Date</td>
+                    <td>Description</td>
+                    <td>Amount</td>
+                </tr>
+            </table>
+            <table style="font-size:10px;" width="100%">
+                <tr>
+                    <td>
+                        Accounts Receivable Balance Outstanding
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+            <table style="font-size:10px;" width="100%">
+                <h5>
+                    <p style="text-center;">LAST PAYMENT DETAILS</p>
+                </h5>
+                <tr>
+                    <td>Payment Date</td>
+                    <td>Mode of Payment</td>
+                    <td>Payment Details</td>
+                    <td>Amount</td>
+                </tr>
+            </table>
+            <table style="font-size:10px;" width="100%">
+                <tr>
+                    <td>
+                        Total Payment
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-size:10px;" width="100%">
+                <h5>
+                    <p style="text-center;">BILLING AND CREDIT ADJUSTMENTS</p>
+                </h5>
+                 <tr>
+                    <td>CM Date</td>
+                    <td>CM Memo No.</td>
+                    <td>Details</td>
+                    <td>Amount</td>
+                </tr>
+            </table>
+             <table style="font-size:10px;" width="100%">
+                <tr>
+                    <td>
+                        Total Adjustment
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+        </t>
+    </template>
+
+    <record id="paperformat_custom" model="report.paperformat">
+        <field name="name">Custom Paper</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10.00</field>
+        <field name="margin_bottom">10.00</field>
+        <field name="margin_left">7.0</field>
+        <field name="margin_right">7.0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="action_ar_report" model="ir.actions.report">
+        <field name="name">AR Report PDF</field>
+        <field name="model">soa.ar.journal</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bcs.arjournal_report_template</field>
+        <field name="report_file">bcs.ar_report</field>
+        <field name="print_report_name">'AR Journal - %s' % object.client_id</field>
+        <field name="binding_model_id" ref="model_soa_ar_journal"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

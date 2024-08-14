@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_view_form_cc" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.cc</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="101"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="CrossChexSettings" id="onehr_tk"
+                         string="ONe-HR"
+                         data-key="onehr_tk" groups="hrad.msd_administrators">
+                        <h2>CrossChex</h2>
+                        <div class="row mt16 o_settings_container" id="crosschex_settings">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">API Key</span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="cc_api_key"/>
+                                    </div>
+                                    <span class="o_form_label">Secret</span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="cc_secret"/>
+                                    </div>
+                                    <span class="o_form_label">Number of days</span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="no_of_days"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="onehr_tk_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'onehr_tk'}</field>
+        </record>
+    </data>
+</odoo>

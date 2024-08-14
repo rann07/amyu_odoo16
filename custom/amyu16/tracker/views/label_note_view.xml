@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--State-->
+        <record id="state_tree_view" model="ir.ui.view">
+            <field name="name">state_tree_view</field>
+            <field name="model">state.labels</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="state_form_view" model="ir.ui.view">
+            <field name="name">state_form_view</field>
+            <field name="model">state.labels</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="state_label_view_action" model="ir.actions.act_window">
+            <field name="name">State</field>
+            <field name="res_model">state.labels</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="state_tree_view"/>
+        </record>
+        <!--label-->
+        <record id="maintenance_tree_view" model="ir.ui.view">
+            <field name="name">maintenance_tree_view</field>
+            <field name="model">label.maintenance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="handles" widget="handle"/>
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="maintenance_form_view" model="ir.ui.view">
+            <field name="name">maintenance_form_view</field>
+            <field name="model">label.maintenance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="label_view_action" model="ir.actions.act_window">
+            <field name="name">Note</field>
+            <field name="res_model">label.maintenance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="maintenance_tree_view"/>
+        </record>
+        <!--printer-->
+        <record id="printer_tree_view" model="ir.ui.view">
+            <field name="name">printer_tree_view</field>
+            <field name="model">label.printer</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="printer_form_view" model="ir.ui.view">
+            <field name="name">printer_form_view</field>
+            <field name="model">label.printer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="printer_view_action" model="ir.actions.act_window">
+            <field name="name">Printer Checklist</field>
+            <field name="res_model">label.printer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="printer_tree_view"/>
+        </record>
+        <!--sorter-->
+        <record id="sorter_tree_view" model="ir.ui.view">
+            <field name="name">sorter_tree_view</field>
+            <field name="model">label.sorter</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sorter_form_view" model="ir.ui.view">
+            <field name="name">sorter_form_view</field>
+            <field name="model">label.sorter</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sorter_view_action" model="ir.actions.act_window">
+            <field name="name">Sorter Checklist</field>
+            <field name="res_model">label.sorter</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sorter_tree_view"/>
+        </record>
+        <!--qcc-->
+        <record id="label_qcc_tree_view" model="ir.ui.view">
+            <field name="name">label_qcc_tree_view</field>
+            <field name="model">label.qcc</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="label_qcc_form_view" model="ir.ui.view">
+            <field name="name">label_qcc_form_view</field>
+            <field name="model">label.qcc</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="label_qcc_view_action" model="ir.actions.act_window">
+            <field name="name">QCC Checklist</field>
+            <field name="res_model">label.qcc</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="label_qcc_tree_view"/>
+        </record>
+        <!--bir-->
+        <record id="label_bir_tree_view" model="ir.ui.view">
+            <field name="name">label_bir_tree_view</field>
+            <field name="model">label.bir</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="label_bir_form_view" model="ir.ui.view">
+            <field name="name">label_bir_form_view</field>
+            <field name="model">label.bir</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="label_bir_view_action" model="ir.actions.act_window">
+            <field name="name">BIR Checklist</field>
+            <field name="res_model">label.bir</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="label_bir_tree_view"/>
+        </record>
+        <!--sec-->
+        <record id="label_sec_tree_view" model="ir.ui.view">
+            <field name="name">label_sec_tree_view</field>
+            <field name="model">label.sec</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="label_sec_form_view" model="ir.ui.view">
+            <field name="name">label_sec_form_view</field>
+            <field name="model">label.sec</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="color" widget="color_picker"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="label_sec_view_action" model="ir.actions.act_window">
+            <field name="name">SEC Checklist</field>
+            <field name="res_model">label.sec</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="label_sec_tree_view"/>
+        </record>
+        <!--progress-->
+        <record id="progress_tree_view" model="ir.ui.view">
+            <field name="name">progress_tree_view</field>
+            <field name="model">revision.status</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="progress__form_view" model="ir.ui.view">
+            <field name="name">progress__form_view</field>
+            <field name="model">revision.status</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="progress_view_action" model="ir.actions.act_window">
+            <field name="name">Ongoing Process</field>
+            <field name="res_model">revision.status</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="progress_tree_view"/>
+        </record>
+    </data>
+</odoo>

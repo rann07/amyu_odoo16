@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record id="tk_hrad_view_employee_form" model="ir.ui.view">
+            <field name="name">tk_hrad.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='resource_calendar_id']" position="before">
+                    <field name="no_time_required"/>
+                    <field name="ot_allowed"
+                           attrs="{'readonly': [('no_time_required','=',True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                    <attribute name="options">{'no_edit': True, 'no_create': True, 'no_open': True}</attribute>
+                    <attribute name="attrs">{'readonly': [('no_time_required','=',True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tz']" position="after">
+                    <field name="assigned_to_obu"
+                           options="{'no_edit': True, 'no_create': True, 'no_open': True}"
+                    />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

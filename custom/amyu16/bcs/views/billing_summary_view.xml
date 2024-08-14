@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="billing_summary_tree_view" model="ir.ui.view">
+            <field name="name">billing_summary_tree_view</field>
+            <field name="model">billing.summary</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="client_id"/>
+                    <field name="service_ids" widget="many2many_tags"/>
+                    <field name="partner_id" optional="hide"/>
+                    <field name="manager_id" optional="hide"/>
+                    <field name="supervisor_id" optional="hide"/>
+                    <field name="associate_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="billing_summary_form_view" model="ir.ui.view">
+            <field name="name">billing_summary_form_view</field>
+            <field name="model">billing.summary</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!-- <button name="submitted_action" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                groups="bcs.ops_manager"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="verified_action" string="Verified" type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to continue to your verification?"
+                                groups="bcs.fad_supervisor"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button name="approved_action" string="Approved" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your approval?"
+                                groups="bcs.fad_manager"
+                                attrs="{'invisible': [('state', '!=', 'verified')]}"/> -->
+
+                        <!-- FOR TESTING ONLY -->
+                        <!-- <button name="submitted_action" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="verified_action" string="Verify" type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to continue to your verification?"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button name="approved_action" string="Approve" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your approval?"
+                                attrs="{'invisible': [('state', '!=', 'verified')]}"/>
+
+                        <field name="state" widget="statusbar" status_invisible="draft,submitted,verified,approved"
+                               attrs="{'invisible':[('state', '==','approved')]}"/> -->
+                    </header>
+                    <sheet>
+                        <div>
+                            <field name="image_1012" widget="image" nolabel="1" class="oe_avatar"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="client_id" placeholder="Client Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="service_ids" widget="many2many_tags"
+                                   options="{'no_create': True, 'no_create_edit':True}"/>
+                        </group>
+                        <group string="Engagement Team">
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="manager_id"/>
+                            </group>
+                            <group>
+                                <field name="supervisor_id"/>
+                                <field name="associate_id"/>
+                            </group>
+                            <group invisible="1">
+                                <field name="has_aud"/>
+                                <field name="has_trc"/>
+                                <field name="has_bks"/>
+                                <field name="has_per"/>
+                                <field name="has_gis"/>
+                                <field name="has_loa"/>
+                                <field name="has_spe"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Audit" attrs="{'invisible': [('has_aud', '=', False)]}">
+                                <field name="audit_ids" nolabel="1">
+                                    <tree>
+                                        <field name="billing_month"/>
+                                        <field name="payment_term"/>
+                                        <field name="details"/>
+                                        <field name="billing_summary_id" readonly="1"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="TRC" attrs="{'invisible': [('has_trc', '=', False)]}">
+                                <field name="trc_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="end_date"/>
+                                        <field name="tax_report_period"/>
+                                        <field name="payment_term"/>
+                                        <field name="details"/>
+                                        <field name="billing_summary_id"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Books" attrs="{'invisible': [('has_bks', '=', False)]}">
+                                <field name="books_ids" nolabel="1">
+                                    <tree>
+                                        <field name="billing_month"/>
+                                        <field name="period_covered"/>
+                                        <field name="branches"/>
+                                        <field name="payment_term"/>
+                                        <field name="reimbursible"/>
+                                        <field name="billing_summary_id"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Business Permit" attrs="{'invisible': [('has_per', '=', False)]}">
+                                <field name="permit_ids" nolabel="1">
+                                    <tree>
+                                        <field name="billing_month"/>
+                                        <field name="period_covered"/>
+                                        <field name="branches"/>
+                                        <field name="reimbursible"/>
+                                        <field name="billing_summary_id"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="GIS" attrs="{'invisible': [('has_gis', '=', False)]}">
+                                <field name="gis_ids" nolabel="1">
+                                    <tree>
+                                        <field name="billing_month"/>
+                                        <field name="details"/>
+                                        <field name="billing_summary_id"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="LOA" attrs="{'invisible': [('has_loa', '=', False)]}">
+                                <field name="loa_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="payment_term"/>
+                                        <field name="letter_date"/>
+                                        <field name="period_covered"/>
+                                        <field name="details"/>
+                                        <field name="billing_summary_id"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Special Engagement" attrs="{'invisible': [('has_spe', '=', False)]}">
+                                <field name="spe_ids">
+                                    <tree>
+                                        <field name="billing_month"/>
+                                        <field name="payment_terms"/>
+                                        <!-- <field name="service_id"/> -->
+                                        <field name="service_details"/>
+                                        <field name="billing_summary_id"/>
+                                        <field name="service_fee"/>
+                                        <field name="ope_rate"/>
+                                        <field name="ope"/>
+                                        <field name="vat"/>
+                                        <field name="amount"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="billing_summary_view_action" model="ir.actions.act_window">
+            <field name="name">Billing Summary</field>
+            <field name="res_model">billing.summary</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="billing_summary_tree_view"/>
+        </record>
+    </data>
+</odoo>

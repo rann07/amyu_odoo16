@@ -1,0 +1,8 @@
+"id","name","practice","code"
+"service_1","Audit","assurance_audit","AUD"
+"service_2","TRC","tax_services","TRC"
+"service_3","Books","consultancy_services","BKS"
+"service_4","Business Permits","consultancy_services","PER"
+"service_5","GIS","consultancy_services","GIS"
+"service_6","LOA","consultancy_services","LOA"
+"service_7","Special Engagement","consultancy_services","SPE"

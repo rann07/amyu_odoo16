@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fa_qr_label" model="ir.actions.report">
+        <field name="name">QR Label</field>
+        <field name="model">onehr.fixed.assets</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">onehr_fixed_assets.template_print_fixed_assets</field>
+        <field name="report_file">onehr_fixed_assets.template_print_fixed_assets</field>
+        <field name="binding_model_id" ref="onehr_fixed_assets.model_onehr_fixed_assets"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="onehr_fixed_assets.paperformat_fa_qr"/>
+    </record>
+
+    <template id="template_print_fixed_assets">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="fa">
+                    <div class="container" style="width:384pt; height:192pt;
+                         border: 1pt solid black; border-collapse:separate; border-radius:8pt; margin:10pt;
+                         ">
+                        <div class="col-md-6">
+                            <h5 class="text-center" style="padding-top: 20px;">Property of <span> <t t-esc="fa.company_name"/></span></h5>
+                            <div class="row">
+                                <div class="col-md-3" style="width: 60%; margin-top: 5%;">
+                                    <div style="font-size:14pt; margin-left: 10%; margin-bottom:0pt;margin-top:0pt;"
+                                         align="left">
+                                        <strong><t t-esc="fa.full_description"/>, <t t-esc="fa.brand"/></strong>
+                                    </div>
+                                    <div align="left" style="margin-left: 10%; font-size:14pt;margin-bottom:0pt;">
+                                       <t t-esc="fa.date_purchased"/>
+                                    </div>
+                                    <div align="left" style="margin-left: 10%; font-size:14pt;margin-bottom:0pt;">
+                                        <t t-esc="fa.name"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="width: 40%;">
+                                        <div style="background-color: white; font-size:15pt; margin-right: 30pt; margin-bottom:0pt;margin-top:0pt;" align="right">
+                                        <img t-if="fa.qr_code"
+                                            t-att-src="image_data_uri(fa.qr_code)"
+                                             style="max-height:100pt;max-width:100pt;" alt="Fixed Assets QR"/>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-md-6" style="padding-top: 5%;">
+                                <p class="text-center">DO NOT REMOVE THIS LABEL</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>

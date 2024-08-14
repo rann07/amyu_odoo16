@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="client_profile_tree_view" model="ir.ui.view">
+            <field name="name">client.profile.tree.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <tree export_xlsx="0">
+                    <field name="name"/>
+                    <field name="client_system_generated"/>
+                    <field name="user_id"/>
+                    <field name="cluster_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="client_profile_form_view" model="ir.ui.view">
+            <field name="name">client.profile.form.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <header>
+                        <button name="action_submit_supervisor" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                groups="amyu1.associate_group"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="action_approve_supervisor" string="Verify"
+                                confirm="Are you sure you want to continue with your verification?" type="object"
+                                class="oe_highlight"
+                                groups="amyu1.supervisor_group"
+                                attrs="{'invisible': [('state', '!=', 'supervisor')]}"/>
+                        <button name="action_approve_manager" string="Approve"
+                                confirm="Are you sure you want to continue with your approval?" type="object"
+                                class="oe_highlight"
+                                groups="amyu1.manager_group"
+                                attrs="{'invisible': [('state', '!=', 'manager')]}"/>
+                        <button name="action_return" string="Return" type="object"
+                                confirm="Are you sure you want to return this form?"
+                                groups="amyu1.supervisor_group"
+                                attrs="{'invisible': [('state', '!=', 'supervisor')]}"/>
+                        <button name="action_return" string="Return" type="object"
+                                confirm="Are you sure you want to return this form?"
+                                groups="amyu1.manager_group"
+                                attrs="{'invisible': [('state', '!=', 'manager')]}"/>
+                        <button name="draft_action" string="Update Client" type="object"
+                                groups="amyu1.associate_group" confirm="Are you sure you want to edit?"
+                                attrs="{'invisible': [('state', '!=', 'approved')]}"
+                                class="oe_highlight"/>
+                        <button name="draft_action"
+                                string="Edit"
+                                groups="amyu1.associate_group"
+                                attrs="{'invisible': [('state', '!=', 'cancel')]}" type="object"/>
+                        <field name="state" widget="statusbar" attrs="{'invisible': [('state', '==', 'approved')]}"
+                               status_invisible="draft,supervisor,manager,approved"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <field name="image_101" widget="image" nolabel="1" class="oe_avatar"
+                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="e.g. Lumber Inc"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="client_system_generated" placeholder="System generated"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="organization_type" options="{'no_open': True}"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="nature_of_business" widget="textarea"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                            </group>
+                            <group>
+                                <field name="date_of_engagement"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="industry_class" options="{'no_open': True}"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="report_period" widget="radio"
+                                       options="{'horizontal':True}"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="calendar" widget="radio"
+                                       options="{'horizontal':True}"
+                                       attrs="{'invisible': [('report_period', '!=', 'calendar')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}">
+                                </field>
+                                <field name="fiscal" widget="radio"
+                                       options="{'horizontal':True}"
+                                       attrs="{'invisible': [('report_period', '!=', 'fiscal')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="CONTACT">
+                                <group>
+                                    <group>
+                                        <label for="registered_unit_no" string="Registered Address:"/>
+                                        <div clas="o_address_format">
+                                            <field name="registered_unit_no" placeholder="unit/floor..."
+                                                   class="o_address_registered_unit_no"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="registered_building_name" placeholder="building name..."
+                                                   class="o_address_registered_building_name"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="registered_street" placeholder="street..."
+                                                   class="o_address_registered_street"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="registered_district" placeholder="district/barangay/village..."
+                                                   class="o_address_registered_district"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="registered_city" placeholder="city..."
+                                                   class="o_address_registered_city"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="registered_zip" placeholder="zip..."
+                                                   class="o_address_registered_zip"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="registered_landline" placeholder="input 8 digit only"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="facsimile_no" placeholder="input 8 digit only"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="website"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+
+                                <group string="Accounting or Office Admin Address" col="3">
+                                    <group>
+                                        <label for="office_admin_unit_no" string="Address:"/>
+                                        <div clas="o_address_format">
+                                            <field name="office_admin_unit_no" placeholder="unit/floor..."
+                                                   class="o_address_office_admin_unit_no"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="office_admin_building_name" placeholder="building name..."
+                                                   class="o_address_office_admin_building_name"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="office_admin_street" placeholder="street..."
+                                                   class="o_address_registered_street"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="office_admin_district"
+                                                   placeholder="district/barangay/village..."
+                                                   class="o_address_office_admin_district"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="office_admin_city" placeholder="city..."
+                                                   class="o_address_office_admin_city"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                            <field name="office_admin_zip" placeholder="zip..."
+                                                   class="o_address_office_admin_zip"
+                                                   attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        </div>
+                                    </group>
+                                    <group string="Primary Contact Information">
+                                        <field name="primary_contact_person"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="primary_contact_landline" placeholder="input only 8 digit"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="primary_contact_mobile"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="primary_contact_email"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group string="Accounting Officer">
+                                        <field name="principal_accounting_officer"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="principal_accounting_landline" placeholder="input only 8 digit"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="principal_accounting_mobile"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="principal_accounting_email"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page string="BIR REGISTRATION">
+                                <group col="3">
+                                    <group>
+                                        <field name="vat" placeholder="input 9 Digit Only"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="rdo_code"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="registration_date" widget="date"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+                                <group string="Tax Types" col="3">
+                                    <group>
+                                        <field name="income_tax" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="income_tax"/>
+                                        <field name="value_added_tax" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="value_added_tax"/>
+                                        <field name="other_percentage_tax" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="other_percentage_tax"/>
+                                    </group>
+                                    <group>
+                                        <field name="withholding_tax_compensation" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="withholding_tax_compensation"/>
+                                        <field name="withholding_tax_expanded" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="withholding_tax_expanded"/>
+                                        <field name="withholding_tax_final" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="withholding_tax_final"/>
+                                    </group>
+                                    <group>
+                                        <field name="excise_tax" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="excise_tax"/>
+                                        <field name="registration_fee" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="registration_fee"/>
+                                    </group>
+                                </group>
+                                <field name="other_percentage_tax_text" nolabel="1"
+                                       attrs="{'invisible': [('other_percentage_tax', '=', False)]}"/>
+                                <br/>
+                                <group col="2">
+                                    <group>
+                                        <field name="taxpayer_type"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="invoice_tax"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="filing_payment"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="books_of_account"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="psic_psoc"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="ll_cas_permit_no"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+                                <p>
+                                    Is the Company using any Point-of-Sale (POS),Cash Register (CRM),or Special
+                                    Purpose (SPM) Machines?
+                                    <field name="pos_crm_spm_yes_no" style="margin-left: 20px;" widget="radio"
+                                           options="{'horizontal':True}"
+                                           attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                </p>
+                            </page>
+
+                            <page string="SEC/DTI REGISTRATION">
+                                <group col="3">
+                                    <group>
+                                        <field name="registration_number"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="trade_name"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="registration_date_sec" widget="date"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+
+                                <group string="Capitalization"/>
+                                <field name="capital_sole_proprietor_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'sole_proprietor')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_general_partner_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'general_partnership')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_general_professional_partner_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'general_professional_partnership')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capitalization_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'domestic_stock')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_domestic_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'domestic_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_foreign_corp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'foreign_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_foreign_nsnp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'foreign_nsnp_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_roqh_foreign_corp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'roqh_foreign_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="capital_representative_office_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'representative_office')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <group col="3">
+                                    <p>
+                                        Annual Meeting
+                                    </p>
+                                    <group>
+                                        <field name="date_per_law"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+                                <p>
+                                    Is the Company a holder of a Secondary license issued by the Securities and
+                                    Exchange
+                                    Commission?
+                                    <field name="sec_yes_no" style="margin-left: 20px;" widget="radio"
+                                           options="{'horizontal':True}"
+                                           nolabel="1"
+                                           attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    If Yes, what type of security is the Company permitted to sell?
+                                </p>
+                                <p>
+                                    <field name="company_permit_yes" attrs="{'invisible': [('sec_yes_no', '=', 'no')]}"
+                                           widget="text"
+                                           nolabel="1"/>
+                                </p>
+                                <group string="Corporate Officers"/>
+                                <field name="sole_proprietor_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'sole_proprietor')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="general_partnership_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'general_partnership')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="general_professional_partnership_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'general_professional_partnership')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="domestic_stock_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'domestic_stock')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="domestic_corp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'domestic_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="foreign_corp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'foreign_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="foreign_nsnp_corp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'foreign_nsnp_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="roqh_foreign_corp_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'roqh_foreign_corp')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="representative_office_ids"
+                                       attrs="{'invisible': [('organization_type', '!=', 'representative_office')],'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                            </page>
+
+                            <page name="regulatory_information" string="REGULATORY">
+                                <p>
+                                    Is the Entity regulated or accredited by or is a license holder issued by any of the
+                                    following Government Regulatory Agencies?
+                                    <field name="regulatory_yes_no" style="margin-left: 20px; margin-bottom:10px; "
+                                           widget="radio"
+                                           options="{'horizontal':True}"
+                                           attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                </p>
+                                <group col="2">
+                                    <group>
+                                        <field name="bangko_sentral_pilipinas" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="bangko_sentral_pilipinas"/>
+                                        <field name="bureau_of_custom" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="bureau_of_custom"/>
+                                        <field name="construction_industry_authority_philippines" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="construction_industry_authority_philippines"/>
+                                        <field name="cooperative_development_authority" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="cooperative_development_authority"/>
+                                        <field name="insurance_commission" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="insurance_commission"/>
+                                        <field name="integrated_bar_philippines" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="integrated_bar_philippines"/>
+                                    </group>
+                                    <group>
+                                        <field name="land_transportation_franchising_regulatory_board" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="land_transportation_franchising_regulatory_board"/>
+                                        <field name="philippine_amusement_gaming_corporation" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="philippine_amusement_gaming_corporation"/>
+                                        <field name="philippines_council_ngo_certification" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="philippines_council_ngo_certification"/>
+                                        <field name="philippines_stock_exchange" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="philippines_stock_exchange"/>
+                                        <field name="professional_regulation_commission" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="professional_regulation_commission"/>
+                                        <field name="others_regulatory" nolabel="1"
+                                               attrs="{'readonly':['|','|','|','|',('regulatory_yes_no', '=','no'),  ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="others_regulatory"/>
+                                        <field name="others_regulatory_text" nolabel="1" colspan="2"
+                                               attrs="{'invisible': [('others_regulatory', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <field name="bsp_filename" invisible="1"/>
+                                <field name="attachment_bsp" widget="many2many_binary" filename="bsp_filename"
+                                       attrs="{'invisible': [('bangko_sentral_pilipinas', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="boc_filename" invisible="1"/>
+                                <field name="attachment_boc" widget="many2many_binary" filename="boc_filename"
+                                       attrs="{'invisible': [('bureau_of_custom', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="prc_filename" invisible="1"/>
+                                <field name="attachment_prc" widget="many2many_binary" filename="prc_filename"
+                                       attrs="{'invisible': [('professional_regulation_commission', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="pcnc_filename" invisible="1"/>
+                                <field name="attachment_pcnc" widget="many2many_binary" filename="pcnc_filename"
+                                       attrs="{'invisible': [('philippines_council_ngo_certification', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="cda_filename" invisible="1"/>
+                                <field name="attachment_cda" widget="many2many_binary" filename="cda_filename"
+                                       attrs="{'invisible': [('cooperative_development_authority', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="ic_filename" invisible="1"/>
+                                <field name="attachment_ic" widget="many2many_binary" filename="ic_filename"
+                                       attrs="{'invisible': [('insurance_commission', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="ibp_filename" invisible="1"/>
+                                <field name="attachment_ibp" widget="many2many_binary" filename="ibp_filename"
+                                       attrs="{'invisible': [('integrated_bar_philippines', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="pse_filename" invisible="1"/>
+                                <field name="attachment_pse" widget="many2many_binary" filename="pse_filename"
+                                       attrs="{'invisible': [('philippines_stock_exchange', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="ciap_filename" invisible="1"/>
+                                <field name="attachment_ciap" widget="many2many_binary" filename="ciap_filename"
+                                       attrs="{'invisible': [('construction_industry_authority_philippines', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="pagc_filename" invisible="1"/>
+                                <field name="attachment_pagc" widget="many2many_binary" filename="pagc_filename"
+                                       attrs="{'invisible': [('philippine_amusement_gaming_corporation', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                <field name="ltfrb_filename" invisible="1"/>
+                                <field name="attachment_ltfrb" widget="many2many_binary" filename="ltfrb_filename"
+                                       attrs="{'invisible': [('land_transportation_franchising_regulatory_board', '=', False)],'readonly':['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                            </page>
+
+                            <page name="social_security_information" string="SOCIAL SECURITY">
+                                <group col="3">
+                                    <group>
+                                        <field name="sss" placeholder="input 13 Digit Only"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="sss_filing"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="sss_pay"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="phic" placeholder="input 12 Digit Only"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="phic_filing"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="phic_pay"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="hdmf" placeholder="input 12 Digit Only"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="hdmf_filing"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="hdmf_pay"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <page name="engagement_administration" string="ENGAGEMENT ADMINISTRATION">
+                                <group name="engagement_team" string="Engagement Team">
+                                    <group>
+                                        <field name="user_id" options="{'no_open': True,'no_create': True}"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <field name="supervisor_id"/>
+                                        <field name="manager_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="lead_partner_id"/>
+                                        <field name="cluster_id"/>
+                                        <field name="team_id" options="{'no_open': True,'no_create': True}"/>
+                                    </group>
+                                </group>
+                                <group string="Engagement Types" col="4">
+                                    <group>
+                                        <field name="tax_services" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_services"/>
+                                    </group>
+                                    <group>
+                                        <field name="assurance_services" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="assurance_services"/>
+                                    </group>
+                                    <group>
+                                        <field name="advisory_services" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="advisory_services"/>
+                                    </group>
+                                    <group>
+                                        <field name="business_services" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="business_services"/>
+                                    </group>
+                                </group>
+                                <group string="TAX Services" attrs="{'invisible': [('tax_services', '!=', True)]}">
+                                    <group>
+                                        <field name="tax_report" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_report"/>
+                                        <field name="tax_investigation" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_investigation"/>
+                                        <field name="tax_review" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_review"/>
+                                    </group>
+                                    <group>
+                                        <field name="tax_advisory" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_advisory"/>
+                                        <field name="tax_refund" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_refund"/>
+                                        <field name="tax_rule" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="tax_rule"/>
+                                    </group>
+                                </group>
+                                <group string="Assurance and Audit Services" col="3"
+                                       attrs="{'invisible': [('assurance_services', '!=', True)]}">
+                                    <group>
+                                        <field name="review" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="review"/>
+                                    </group>
+                                    <group>
+                                        <field name="extend_audit" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="extend_audit"/>
+                                    </group>
+                                    <group>
+                                        <field name="assurance_engagement" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="assurance_engagement"/>
+                                    </group>
+                                </group>
+                                <group string="Advisory And Consultancy Services"
+                                       attrs="{'invisible': [('advisory_services', '!=', True)]}">
+                                    <group>
+                                        <field name="business_review" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="business_review"/>
+                                        <field name="internal_audit" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="internal_audit"/>
+                                        <field name="risk_management" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="risk_management"/>
+                                    </group>
+                                    <group>
+                                        <field name="procedures_engagement" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="procedures_engagement"/>
+                                        <field name="corporate_finance" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="corporate_finance"/>
+                                        <field name="organizational" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="organizational"/>
+                                    </group>
+                                </group>
+                                <group string="Business Support and Process Outsourcing Services"
+                                       attrs="{'invisible': [('business_services', '!=', True)]}">
+                                    <group>
+                                        <field name="accounting" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="accounting"/>
+                                        <field name="compilation" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="compilation"/>
+                                        <field name="accounts_restructuring" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="accounts_restructuring"/>
+                                        <field name="amendment" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="amendment"/>
+                                    </group>
+                                    <group>
+                                        <field name="preparation_gis" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="preparation_gis"/>
+                                        <field name="business_registration" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="business_registration"/>
+                                        <field name="staff_arrangement" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="staff_arrangement"/>
+                                    </group>
+                                </group>
+                                <group string="Non Routinary" col="2">
+                                    <group>
+                                        <field name="lis" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="lis"/>
+                                        <field name="gis" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="gis"/>
+                                        <field name="inv_list" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="inv_list"/>
+                                    </group>
+                                    <group>
+                                        <field name="books_renewal" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="books_renewal"/>
+                                        <field name="business_permit" nolabel="1"
+                                               attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                                        <label for="business_permit"/>
+                                    </group>
+
+                                </group>
+                                <group string="Escalation Matrix"/>
+                                <p>
+                                    For any pertinent issues resolution, outstanding documentation for submission,
+                                    and follow-up requests shall be escalated as:
+                                </p>
+                                <field name="escalation_ids"
+                                       attrs="{'readonly': ['|','|','|', ('state', '=', 'supervisor'), ('state', '=', 'manager'), ('state', '=', 'approved'), ('state', '=', 'cancel')]}"/>
+                            </page>
+
+                            <!--                            <page name="working_papers" string="Working Papers">-->
+                            <!--                                <header>-->
+                            <!--                                    <button name="action_attach_documents" class="oe_stat_button"-->
+                            <!--                                            type="object" icon="fa-files-o" widget="statinfo">-->
+                            <!--                                        <div class="o_stat_info">-->
+                            <!--                                            <field name="documents_count"/>-->
+                            <!--                                            <span class="o_stat_text">Working Papers</span>-->
+                            <!--                                        </div>-->
+                            <!--                                    </button>-->
+                            <!--                                </header>-->
+                            <!--                            </page>-->
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_profile_search_view" model="ir.ui.view">
+            <field name="name">client.profile.search.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Client"/>
+                    <field name="user_id" string="Associates"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="maintain_client_profile_action" model="ir.actions.act_window">
+            <field name="name">Client Profile</field>
+            <field name="res_model">client.profile</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|',('state','=','draft'),('state','=','cancel')]</field>
+        </record>
+
+        <record model="ir.sequence" id="client_id_seq">
+            <field name="name">Client ID Sequence"</field>
+            <field name="code">client.id.seq</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_next">1</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

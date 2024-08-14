@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="corporate_officer_tree_view" model="ir.ui.view">
+            <field name="name">corporate.officer.tree.view</field>
+            <field name="model">corporate.officer</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" edit="1" delete="0">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="domestic_nsnp_corp_tree_view" model="ir.ui.view">
+            <field name="name">domestic.corp.tree.view</field>
+            <field name="model">domestic.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="president"/>
+                    <field name="treasurer"/>
+                    <field name="corporate_secretary"/>
+                    <field name="vice_chairman"/>
+                    <field name="asst_treasurer"/>
+                    <field name="asst_corp_secretary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="domestic_stock_tree_view" model="ir.ui.view">
+            <field name="name">domestic.stock.tree.view</field>
+            <field name="model">domestic.stock</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="president"/>
+                    <field name="treasurer"/>
+                    <field name="corporate_secretary"/>
+                    <field name="vice_chairman"/>
+                    <field name="asst_treasurer"/>
+                    <field name="asst_corp_secretary"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="foreign_nsnp_corp_tree_view" model="ir.ui.view">
+            <field name="name">foreign.nsnp.corp.tree.view</field>
+            <field name="model">foreign.nsnp.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="asst_manager"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="foreign_corp_tree_view" model="ir.ui.view">
+            <field name="name">foreign.corp.tree.view</field>
+            <field name="model">foreign.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="asst_manager"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="general_partnership_tree_view" model="ir.ui.view">
+            <field name="name">general.partnership.tree.view</field>
+            <field name="model">general.partnership</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="partner"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="general_professional_partnership_tree_view" model="ir.ui.view">
+            <field name="name">general.professional.partnership.tree.view</field>
+            <field name="model">general.professional.partnership</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="partner"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="representative_office_tree_view" model="ir.ui.view">
+            <field name="name">representative.office.tree.view</field>
+            <field name="model">representative.office</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="asst_manager"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="roqh_foreign_corp_tree_view" model="ir.ui.view">
+            <field name="name">roqh.foreign.corp.tree.view</field>
+            <field name="model">roqh.foreign.corp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                    <field name="asst_manager"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sole_proprietor_tree_view" model="ir.ui.view">
+            <field name="name">sole.proprietor.tree.view</field>
+            <field name="model">sole.proprietor</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1" delete="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

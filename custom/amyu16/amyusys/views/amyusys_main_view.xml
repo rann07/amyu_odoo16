@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="amyusys_main_view_form" model="ir.ui.view">
+            <field name="name">amyusys_module_view_form</field>
+            <field name="model">amyusys.included.modules</field>
+            <field name="arch" type="xml">
+                <form string="Module" edit="False">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="description" />
+                            <field name="module_name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="amyusys_main_view_tree" model="ir.ui.view">
+            <field name="name">amyusys_module_view_tree</field>
+            <field name="model">amyusys.included.modules</field>
+            <field name="arch" type="xml">
+                <tree create="False">
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="module_name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="amyusys_main_view_action" model="ir.actions.act_window">
+            <field name="name">AMYU Systems</field>
+            <field name="res_model">amyusys.included.modules</field>
+            <field name="view_mode">list,form</field>
+            <field name="target">current</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem name="Mobile App" id="hr_mobile_app_menu_root"
+                  web_icon="mobile,static/description/mobile.png"
+                  groups="base.group_user"/>
+
+        <menuitem name="Mobile App Data"
+                  id="hr_mobile_menu_root"
+                  parent="hr_mobile_app_menu_root"
+                  sequence="1"
+                  groups="base.group_user"/>
+    </data>
+</odoo>

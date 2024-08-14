@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_ob_tree" model="ir.ui.view">
+        <field name="name">hr.ob.tree</field>
+        <field name="model">hr.ob</field>
+        <field name="arch" type="xml">
+            <tree string="Official Business">
+                <field name="name"/>
+                <field name="hr_employee_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="days"/>
+                <field name="reason"/>
+                <field name="person_visited"/>
+                <field name="plate_number"/>
+                <field name="odometer"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_ob_form" model="ir.ui.view">
+        <field name="name">hr.ob.form</field>
+        <field name="model">hr.ob</field>
+        <field name="arch" type="xml">
+            <form string="Official Business">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                    <button name="action_approved" type="object" string="Approved"
+                            attrs="{'invisible': [('status','not in', ('for_approval'))]}"
+                            groups="hrad.hr_ob_approver"
+                            confirm="Click OK to confirm your approved action."/>
+                    <button name="action_disapproved" type="object" string="Disapproved"
+                            attrs="{'invisible': [('status','not in', ('for_approval'))]}"
+                            groups="hrad.hr_ob_approver"
+                            confirm="Click OK to confirm your disapproved action."/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group string="Set Employee">
+                        <field name="hr_employee_id"
+                               attrs="{'readonly': [('status', '!=', 'for_approval')]}"
+                               options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                        <field name="job_name"/>
+                        <field name="department_name"
+                               options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group string="Input fields">
+                        <field name="start_date" attrs="{'readonly': [('status', '!=', 'for_approval')]}"/>
+                        <field name="end_date" attrs="{'readonly': [('status', '!=', 'for_approval')]}"/>
+                        <field name="days" readonly="1"/>
+                        <field name="reason" attrs="{'readonly': [('status', '!=', 'for_approval')]}"/>
+                        <field name="person_visited" attrs="{'readonly': [('status', '!=', 'for_approval')]}"/>
+                        <field name="plate_number" attrs="{'readonly': [('status', '!=', 'for_approval')]}"/>
+                        <field name="odometer" attrs="{'readonly': [('status', '!=', 'for_approval')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_ob_search">
+        <field name="name">Search Official Business</field>
+        <field name="model">hr.ob</field>
+        <field name="arch" type="xml">
+            <search string="Search Filed Official Business">
+                <field name="hr_employee_id"/>
+                <field name="start_date"/>
+                <filter string="For Approval" name="for_approval"
+                        domain="[('status','=','for_approval')]"/>
+                <filter name="group_employee_id" string="Employee" icon="terp-partner"
+                        context="{'group_by':'hr_employee_id'}"/>
+                <filter name="group_date" string="Date" icon="terp-partner"
+                        context="{'group_by':'start_date'}"/>
+                <filter name="group_dept" string="Department" icon="terp-partner"
+                        context="{'group_by':'department_name'}"/>
+                <filter string="Current Month" name="current_month"
+                        domain="[('start_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('start_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_ob_action" model="ir.actions.act_window">
+        <field name="name">Official Business</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.ob</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_ob_tree"/>
+        <field name="context">{'search_default_current_month': 1, 'search_default_group_employee_id': 1,
+            'search_default_group_date': 1,'search_default_for_approval': 1}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Official Business
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Official Business"
+              id="hr_ob_menu"
+              parent="menu_hr_tasks"
+              groups="hrad.msd_administrators,hr.group_hr_manager,hr.group_hr_user"
+              sequence="1"
+    />
+    <menuitem name="Filed OB"
+              id="hr_filed_ob_menu"
+              parent="hr_ob_menu"
+              groups="hrad.msd_administrators,hr.group_hr_manager,hr.group_hr_user"
+              action="hr_ob_action"
+              sequence="1"
+    />
+
+    <record model="ir.sequence" id="ob_seq">
+        <field name="name">OB Sequence</field>
+        <field name="code">ob.seq</field>
+        <field name="prefix">OB-</field>
+        <field name="company_id" eval="False"/>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hr_ob_rule" model="ir.rule">
+        <field name="name">OB multi company rule</field>
+        <field name="model_id" ref="model_hr_ob"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

@@ -1,0 +1,72 @@
+<odoo>
+
+    <record id="cancelled_fa_report" model="ir.actions.report">
+        <field name="name">onehr_fixed_assets.cancelled_fa_report_view</field>
+        <field name="model">report.onehr_fixed_assets.cancelled_fa_report_view</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">onehr_fixed_assets.cancelled_fa_report_view</field>
+        <field name="report_file">onehr_fixed_assets.cancelled_fa_report_view</field>
+        <field name="binding_model_id" ref="onehr_fixed_assets.model_cancelled_fa_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="cancelled_fa_report_view">
+        <t t-call="web.html_container">
+            <t t-call="onehr_fixed_assets.fa_reports_layout">
+                <style type="text/css">
+                    tr:nth-child(even) { background-color: #f2f2f2; }
+                </style>
+                <div>
+                    <div class="page">
+                        <p class="text-center"
+                           style="font-size: 11.5px; padding: 0px; margin-bottom: 0px; font-weight: bold;">MANAGEMENT
+                            SYSTEM DEPARTMENT
+                        </p>
+                        <p class="text-center" style="font-size: 18.5px; font-weight: bold;">FIXED ASSETS CANCELLED
+                            LIST
+                        </p>
+                        <p class="text-center" style="font-size: 10.5px; font-weight: bold;">
+                            <t t-esc="header"/>
+                        </p>
+                        <div style="page-break-after: auto;">
+                            <table class="table-sm" style="width: 100%; font-size: 10.5px; padding: 0px;">
+                                <thead class="thead-light">
+                                    <th class="text-center">Asset Code</th>
+                                    <th class="text-center">Full Description</th>
+                                    <th class="text-center">Custodian</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-center">Date Cancelled</th>
+                                    <th class="text-center">Remarks</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs" t-as="doc">
+                                        <tr style="page-break-inside: avoid;">
+                                            <td class="text-center">
+                                                <span t-esc="doc['asset_code']"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="doc['full_description']"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="doc['custodian']"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="doc['asset_qty']"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="doc['date_cancelled']"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="doc['remarks']"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

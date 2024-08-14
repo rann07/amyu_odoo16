@@ -1,0 +1,335 @@
+<odoo>
+    <data>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">view.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority">101</field>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='managers']" position="replace">
+                    <group name="onehr_managers" string="Approvers">
+                        <field name="leave_approver_ids" widget="many2many_tags"
+                               options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                        <field name="ob_approver_ids" widget="many2many_tags"
+                               options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                        <field name="ot_approver_ids" widget="many2many_tags"
+                               options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                    </group>
+                </xpath>
+                <xpath expr="//header/button" position="replace"/>
+                <xpath expr="//field[@name='job_id']" position="replace"/>
+                <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="employee_id" placeholder="eg.: E-2023-04-00001"/>
+                    <field name="job_id" options="{'no_edit': True, 'no_create': True, 'no_open': True}"
+                           required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='coach_id']" position="attributes">
+                    <attribute name="string">Supervisor</attribute>
+                    <attribute name="options">{'no_edit': True, 'no_create': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="options">{'no_edit': True, 'no_create': True, 'no_open': True}</attribute>
+                    <attribute name="domain">[('executive','=',True)]</attribute>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="options">{'no_edit': True, 'no_create': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="executive_id" options="{'no_edit': True, 'no_create': True, 'no_open': True}"
+                           context="{'order_display': 'name'}"/>
+                </xpath>
+                <xpath expr="//field[@name='category_ids']" position="replace"/>
+                <xpath expr="//form/sheet/group/group[1]/field[@name='company_id']" position="attributes">
+                    <attribute name="options">{'no_edit': True, 'no_create': True, 'no_open': True}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='hr_settings']/group/group[1]/field[@name='user_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_edit': True, 'no_create': True, 'no_open': True}</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@name='hr_settings']/group/group[3]" position="replace"/>
+                <xpath expr="//form/sheet/notebook/page[@name='hr_settings']/group/group[2]" position="replace"/>
+
+                <xpath expr="//form/sheet/notebook/page[2]/div/div/group[1]" position="replace"/>
+                <xpath expr="//form/sheet/div[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/div[2]" position="after">
+                    <div class="oe_title">
+                        <h2 class="d-flex flex-row">
+                            <field name="first_name" placeholder="First name" required="1"/>
+                        </h2>
+                        <h2>
+                            <field name="middle_name" placeholder="Middle Name"/>
+                        </h2>
+                        <h2>
+                            <field name="family_name" placeholder="Family Name" required="1"/>
+                        </h2>
+                    </div>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']" position="replace"/>
+                <xpath expr="//page[@name='public']" position="replace">
+                    <page name="public" string="Work Experience">
+                        <div class="row">
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_resume col-lg-7 d-flex flex-column">
+                                <separator string="Work Experience" class="mb-4"/>
+                                <!-- This field uses a custom tree view rendered by the 'resume_one2many' widget.
+                                    Adding fields in the tree arch below makes them accessible to the widget
+                                -->
+                                <field mode="tree" nolabel="1" name="resume_line_ids" widget="resume_one2many">
+                                    <tree>
+                                        <field name="line_type_id"/>
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="display_type" invisible="1"/>
+                                    </tree>
+                                </field>
+
+                            </div>
+                            <div class="o_hr_skills_editable o_hr_skills_group o_group_skills col-lg-5 d-flex flex-column">
+                                <separator string="Skills" class="mb-4"/>
+                                <field mode="tree" nolabel="1" name="employee_skill_ids" widget="skills_one2many">
+                                    <tree>
+                                        <field name="skill_type_id" invisible="1"/>
+                                        <field name="skill_id"/>
+                                        <field name="skill_level_id"/>
+                                        <field name="level_progress" widget="progressbar"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </div>
+                    </page>
+
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Personal Info" groups="hr.group_hr_user">
+                        <group string="Contact Info">
+                            <field name="mailing_address_is" widget="radio"
+                                   options="{'horizontal': true}" class="oe_edit_only"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="address1"/>
+                            </group>
+                            <group>
+                                <field name="address2"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="priv_phone" string="Phone"/>
+                            <field name="priv_email"/>
+                        </group>
+                        <group string="Indentifications">
+                            <group>
+                                <field name="tax_code"/>
+                                <field name="bank_account"/>
+                                <field name="tin"/>
+                                <field name="sss"/>
+                            </group>
+                            <group>
+                                <field name="hdmf"/>
+                                <field name="phic"/>
+                                <field name="medicard"/>
+                                <field name="medicard_active"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Status">
+                                <field name="gender"/>
+                                <field name="marital"/>
+                                <field name="spouse_complete_name"
+                                       attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}"
+                                       groups="hr.group_hr_user"/>
+                                <field name="spouse_birthdate"
+                                       attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}"
+                                       groups="hr.group_hr_user"/>
+                                <field name="children"/>
+                                <field name="emergency_contact"
+                                       placeholder="Complete info of person to notify in case of emergency"/>
+                            </group>
+                            <group string="Birth">
+                                <field name="birthday"/>
+                                <field name="place_of_birth" groups="hr.group_hr_user"/>
+                                <field name="country_of_birth" groups="hr.group_hr_user"/>
+                                <field name="fathers_name"/>
+                                <field name="mothers_name"/>
+                            </group>
+                        </group>
+                        <group string="Educational Background"/>
+                        <field name="employee_educ_ids" nolabel="1">
+                            <tree>
+                                <field name="level"/>
+                                <field name="name"/>
+                                <field name="graduated"/>
+                                <field name="year_grad" />
+                                <field name="awards"/>
+                            </tree>
+                            <form string="Educational Record">
+                                <sheet>
+                                    <group>
+                                        <field name="level"/>
+                                        <field name="name"/>
+                                        <field name="graduated"/>
+                                        <field name="year_grad"/>
+                                        <field name="awards"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        <group string="Signature">
+                            <div>
+                                <field name="signature" widget="signature"/>
+                            </div>
+                        </group>
+                    </page>
+                    <page string="Employment Status">
+                        <group>
+                            <group>
+                                <field name="executive"/>
+                            </group>
+                            <group>
+                                <field name="employment_status"/>
+                            </group>
+                        </group>
+                        <group string="Employment Dates">
+                            <group>
+                                <field name="cos_date"/>
+                                <field name="probi_date"/>
+                                <field name="ojt_date"/>
+                                <field name="pb_date"/>
+                                <field name="cb_date"/>
+                                <field name="date_regular"/>
+                            </group>
+                            <group>
+                                <field name="cos_enddate"/>
+                                <field name="probi_enddate"/>
+                                <field name="ojt_enddate"/>
+                                <field name="pb_enddate"/>
+                                <field name="cb_enddate"/>
+                                <field name="date_hired"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Compensation" groups="hrad.hr_compen_ben,hrad.msd_administrators">
+                        <group>
+                            <group string="Rate">
+                                <field name="monthly_rate" widget="monetary"/>
+                                <field name="semi_monthly_rate" widget="monetary"/>
+                                <field name="weekly_rate" widget="monetary"/>
+                                <field name="daily_rate" widget="monetary"/>
+                                <field name="hourly_rate" widget="monetary"/>
+                            </group>
+                            <group string="COLA">
+                                <field name="monthly_cola" widget="monetary"/>
+                                <field name="semi_monthly_cola" widget="monetary"/>
+                                <field name="weekly_cola" widget="monetary"/>
+                                <field name="daily_cola" widget="monetary"/>
+                                <field name="pay_type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Non-taxable allowances per payroll">
+                                <field name="allow_misc" widget="monetary"/>
+                                <field name="allow_meal" widget="monetary"/>
+                                <field name="allow_transpo" widget="monetary"/>
+                                <button name="%(action_copy_to_compensation_history)d"
+                                        string="Copy to Compensation History"
+                                        type="action" class="oe_highlight"/>
+                            </group>
+                            <group string="Mandatory Deductions">
+                                <field name="ded_sss"/>
+                                <field name="ded_phic"/>
+                                <field name="ded_hdmf"/>
+                            </group>
+                        </group>
+                        <group string="Compensation History"/>
+
+                        <field name="rates_history" nolabel="1">
+                            <tree create="false" edit="false" delete="false" default_order="doe desc">
+                                <field name="create_date"/>
+                                <field name="doe"/>
+                                <field name="monthly_rate"/>
+                                <field name="semi_monthly_rate"/>
+                                <field name="weekly_rate"/>
+                                <field name="daily_rate"/>
+                                <field name="hourly_rate"/>
+                                <field name="allow_misc"/>
+                                <field name="allow_meal"/>
+                                <field name="allow_transpo"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="doe"/>
+                                        <field name="monthly_rate"/>
+                                        <field name="semi_monthly_rate"/>
+                                        <field name="weekly_rate"/>
+                                        <field name="daily_rate"/>
+                                        <field name="hourly_rate"/>
+                                        <field name="allow_misc"/>
+                                        <field name="allow_meal"/>
+                                        <field name="allow_transpo"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                        <group string="Project TM">
+                            <field name="tm_monthly" widget="monetary"/>
+                            <field name="tm_semi_monthly" widget="monetary"/>
+                            <field name="tm_weekly" widget="monetary"/>
+                            <field name="ded_phic_er" widget="monetary"/>
+                            <field name="ded_phic_ee" widget="monetary"/>
+                        </group>
+                    </page>
+                    <page string="Other Benefits">
+                        <field name="ob_ids" nolabel="1">
+                            <tree default_order="status"
+                                  decoration-success="status == 'active'"
+                                  decoration-danger="status == 'revoked'"
+                                  decoration-muted="status == 'discontinued'">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="amount" widget="monetary"/>
+                                <field name="date" widget="date"/>
+                                <field name="status"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                        <field name="amount" widget="monetary"/>
+                                        <field name="date" widget="date"/>
+                                        <field name="status"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Leaves"
+                          attrs="{'invisible': [('id','=',False)]}">
+                        <field name="hr_leave_ids">
+                            <tree editable="bottom">
+                                <field name="hr_leave_type_id"
+                                       options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                                <field name="with_annual_allocation"/>
+                                <field name="current_balance" readonly="1"/>
+                                <button name="%(action_reset_leave)d"
+                                        class="oi oi-settings-adjust"
+                                        attrs="{'invisible': [('with_annual_allocation','=',False)]}"
+                                        type="action"/>
+                                <button name="show_leave_reset_logs"
+                                        class="oi oi-view-list"
+                                        attrs="{'invisible': [('with_annual_allocation','=',False)]}"
+                                        context="{'hr_employee_id': parent.id}"
+                                        type="object"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

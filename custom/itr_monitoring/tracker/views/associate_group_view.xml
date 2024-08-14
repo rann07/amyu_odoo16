@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Team-->
+        <record id="associate_tree_view" model="ir.ui.view">
+            <field name="name">associate_tree_view</field>
+            <field name="model">team.group</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="team_id"/>
+                    <field name="supervisor_id"/>
+                    <field name="manager_id"/>
+                    <field name="partners_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="associate_form_view" model="ir.ui.view">
+            <field name="name">associate_form_view</field>
+            <field name="model">team.group</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="team_id"/>
+                        <field name="supervisor_id"/>
+                        <field name="manager_id"/>
+                        <field name="partners_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="associate_view_action" model="ir.actions.act_window">
+            <field name="name">Team</field>
+            <field name="res_model">team.group</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="associate_tree_view"/>
+        </record>
+        <!--group team-->
+        <record id="associate_team_tree_view" model="ir.ui.view">
+            <field name="name">associate_team_tree_view</field>
+            <field name="model">associate.team</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="associate_form_view" model="ir.ui.view">
+            <field name="name">associate_team_form_view</field>
+            <field name="model">associate.team</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="name" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="associate_team_view_action" model="ir.actions.act_window">
+            <field name="name">Group Team</field>
+            <field name="res_model">associate.team</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="associate_team_tree_view"/>
+        </record>
+    </data>
+</odoo>

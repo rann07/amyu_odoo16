@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="crosschex_faceid_logs_pool_cron" forcecreate='True' model="ir.cron">
+            <field name="name">Get CrossChex Face ID Logs</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">4</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_crosschex_faceid_logs_pool"/>
+            <field name="active">True</field>
+            <field name="state">code</field>
+            <field name="code">model.crosschex_faceid_logs_pool_cron()</field>
+        </record>
+
+    </data>
+</odoo>

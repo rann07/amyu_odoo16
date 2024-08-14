@@ -1,0 +1,1368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_clientprofile_template">
+        <t t-call="web.html_container">
+            <div class="header">
+                <img src="/amyu1/static/src/img/MicrosoftTeams-image.png"
+                     style="height:150px;width:200px;left:20px;bottom:500px" class="float-start"
+                     alt="Logo"/>
+            </div>
+
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="amyu1.report_clientprofile_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_clientprofile_document">
+        <t t-call="web.external_layout">
+            <br/>
+            <h1>
+                I. General Information
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <td>Registered Name:</td>
+                    <td>
+                        <span t-field="doc.name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Client ID:</td>
+                    <td>
+                        <span t-field="doc.client_system_generated"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Organizational Type:</td>
+                    <td>
+                        <span t-field="doc.organization_type"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Industry Class:</td>
+                    <td>
+                        <span t-field="doc.industry_class"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Engagement:</td>
+                    <td>
+                        <span t-field="doc.date_of_engagement"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nature of Activities, Brands, Product &amp; Services:</td>
+                    <td>
+                        <span t-field="doc.nature_of_business"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <h1>
+                II. Contact Information
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <td>Registered Address:</td>
+                    <td>
+                        <span t-field="doc.registered_unit_no"/>
+                        <span t-field="doc.registered_building_name"/>
+                        <span t-field="doc.registered_street"/>
+                        <span t-field="doc.registered_district"/>
+                        <span t-field="doc.registered_city"/>
+                        <span t-field="doc.registered_zip"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Telephone:</td>
+                    <td>
+                        <span t-field="doc.registered_landline"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Facsimile:</td>
+                    <td>
+                        <span t-field="doc.facsimile_no"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Website:</td>
+                    <td>
+                        <span t-field="doc.website"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Accounting or Office Admin Address:</td>
+                    <td>
+                        <span t-field="doc.office_admin_unit_no"/>
+                        <span t-field="doc.office_admin_building_name"/>
+                        <span t-field="doc.office_admin_street"/>
+                        <span t-field="doc.office_admin_district"/>
+                        <span t-field="doc.office_admin_city"/>
+                        <span t-field="doc.office_admin_zip"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Primary Contact Person:</td>
+                    <td>
+                        <span t-field="doc.primary_contact_person"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Telephone:</td>
+                    <td>
+                        <span t-field="doc.primary_contact_landline"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mobile No:</td>
+                    <td>
+                        <span t-field="doc.primary_contact_mobile"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email Address:</td>
+                    <td>
+                        <span t-field="doc.primary_contact_email"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Principal Accounting Officer:</td>
+                    <td>
+                        <span t-field="doc.principal_accounting_officer"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Telephone:</td>
+                    <td>
+                        <span t-field="doc.principal_accounting_landline"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mobile No:</td>
+                    <td>
+                        <span t-field="doc.principal_accounting_mobile"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email Address:</td>
+                    <td>
+                        <span t-field="doc.principal_accounting_email"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <h1>
+                III. B.I.R Information
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <td>TIN ID No:</td>
+                    <td>
+                        <span t-field="doc.vat"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RDO Code:</td>
+                    <td>
+                        <span t-field="doc.rdo_code"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Registration Date:</td>
+                    <td>
+                        <span t-field="doc.registration_date"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Taxpayer Type:</td>
+                    <td>
+                        <span t-field="doc.taxpayer_type"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Invoice Type:</td>
+                    <td>
+                        <span t-field="doc.invoice_tax"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><![CDATA[Filling & Payment:]]></td>
+                    <td>
+                        <span t-field="doc.filing_payment"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PSIC/PSOC:</td>
+                    <td>
+                        <span t-field="doc.psic_psoc"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>LL/CAS Permit No:</td>
+                    <td>
+                        <span t-field="doc.ll_cas_permit_no"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Is the Company using any
+                        point of sale (POS)
+                        cash register (CRM) or special purpose (SPM)
+                        Machines:
+                    </td>
+                    <td>
+                        <span t-field="doc.pos_crm_spm_yes_no"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <h4>
+                        <p style="text-center;">Tax Type</p>
+                    </h4>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <td t-if="doc.income_tax == True">
+                        <t t-if="doc.income_tax">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Income Tax
+                    </td>
+                    <td t-if="doc.withholding_tax_compensation == True">
+                        <t t-if="doc.withholding_tax_compensation">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Withholding Tax - Compensation
+                    </td>
+                    <td t-if="doc.excise_tax == True">
+                        <t t-if="doc.excise_tax">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Excise Tax
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.value_added_tax == True">
+                        <t t-if="doc.value_added_tax">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Value Added Tax
+                    </td>
+                    <td t-if="doc.withholding_tax_expanded == True">
+                        <t t-if="doc.withholding_tax_expanded">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Withholding Tax Expanded
+                    </td>
+                    <td t-if="doc.registration_fee == True">
+                        <t t-if="doc.registration_fee">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Registration Fee
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.other_percentage_tax == True">
+                        <t t-if="doc.other_percentage_tax">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Other Percentage Tax
+                    </td>
+                    <td t-if="doc.withholding_tax_final == True">
+                        <t t-if="doc.withholding_tax_final">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Withholding Tax Final
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <h1>
+                IV. SEC/DTI Information
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <td>Registration No:</td>
+                    <td>
+                        <span t-field="doc.registration_number"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Trade Name:</td>
+                    <td>
+                        <span t-field="doc.trade_name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Registration Date:</td>
+                    <td>
+                        <span t-field="doc.registration_date"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-size:20px;" width="100%">
+                <h3>
+                    <p style="text-center;">Capitalization</p>
+                </h3>
+                <style>
+                    table, th, td {
+                    border: 2px solid black;
+                    border-collapse: collapse;
+                    }
+                    th, td {
+                    padding: 5px;
+                    text-align: left;
+                    }
+                </style>
+                <t t-if="doc.organization_type == 'sole_proprietor'">
+                    <t t-foreach='doc.capital_sole_proprietor_ids' t-as='line'>
+                        <tr>
+                            <td>Capital Contribution Amount
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'general_partnership'">
+                    <t t-foreach='doc.capital_general_partner_ids' t-as='line'>
+                        <tr>
+                            <td>Partner</td>
+                            <td>Capital Contribution Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.capital_contribution_amount"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'general_professional_partnership'">
+                    <t t-foreach='doc.capital_general_professional_partner_ids' t-as='line'>
+                        <tr>
+                            <td>Partner</td>
+                            <td>Capital Contribution Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.capital_contribution_amount"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'domestic_stock'">
+                    <t t-foreach='doc.capitalization_ids' t-as='line'>
+                        <tr>
+                            <td>Class of Shares</td>
+                            <td>Par Value per Share</td>
+                            <td>Authorized</td>
+                            <td/>
+                            <td>Subscribed</td>
+                            <td/>
+                            <td>Treasury</td>
+                            <td/>
+                            <td>Paid-Up</td>
+                            <td/>
+                            <tr>
+                                <td/>
+                                <td/>
+                                <td>No</td>
+                                <td>Amount</td>
+                                <td>No</td>
+                                <td>Amount</td>
+                                <td>No</td>
+                                <td>Amount</td>
+                                <td>No</td>
+                                <td>Amount</td>
+                            </tr>
+                        </tr>
+                        <tr>
+                            <td>
+                                <t t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.par_value"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.authorized_no"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.authorized_amount"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.subscribed_no"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.subscribed_amount"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.treasury_no"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.treasury_amount"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.paid_up_no"/>
+                            </td>
+                            <td>
+                                <t t-esc="line.paid_up_amount"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'domestic_corp'">
+                    <t t-foreach='doc.capital_domestic_ids' t-as='line'>
+                        <tr>
+                            <td>Capital Contribution Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'foreign_corp'">
+                    <t t-foreach='doc.capital_foreign_corp_ids' t-as='line'>
+                        <tr>
+                            <td>Assigned Capital Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'foreign_nsnp_corp'">
+                    <t t-foreach='doc.capital_foreign_nsnp_ids' t-as='line'>
+                        <tr>
+                            <td>Assigned Capital Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'roqh_foreign_corp'">
+                    <t t-foreach='doc.capital_roqh_foreign_corp_ids' t-as='line'>
+                        <tr>
+                            <td>Assigned Capital Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'representative_office'">
+                    <t t-foreach='doc.capital_representative_office_ids' t-as='line'>
+                        <tr>
+                            <td>Assigned Capital Amount</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </table>
+            <br/>
+            <table style="font-size:20px;" width="100%">
+                <h3>
+                    <p style="text-center;">Corporate Officers</p>
+                </h3>
+                <style>
+                    table, th, td {
+                    border: 2px solid black;
+                    border-collapse: collapse;
+                    }
+                    th, td {
+                    padding: 5px;
+                    text-align: left;
+                    }
+                </style>
+                <t t-if="doc.organization_type == 'sole_proprietor'">
+                    <t t-foreach='doc.sole_proprietor_ids' t-as='line'>
+                        <tr>
+                            <td>Proprietor/Proprietress</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'general_partnership'">
+                    <t t-foreach='doc.general_partnership_ids' t-as='line'>
+                        <tr>
+                            <td>Managing Partner</td>
+                            <td>Partner</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.partner"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'general_professional_partnership'">
+                    <t t-foreach='doc.general_professional_partnership_ids' t-as='line'>
+                        <tr>
+                            <td>Managing Partner</td>
+                            <td>Partner</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.partner"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'domestic_stock'">
+                    <t t-foreach='doc.domestic_stock_ids' t-as='line'>
+                        <tr>
+                            <td>Chairman of the BOD</td>
+                            <td>President/CEO</td>
+                            <td>Treasurer/CFO</td>
+                            <td>Corporate Secretary</td>
+                            <td>Vice-Chairman of the BOD</td>
+                            <td>Asst.Treasurer</td>
+                            <td>Asst.Corporate Secretary</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.president"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.treasurer"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.corporate_secretary"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.vice_chairman"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_treasurer"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_corp_secretary"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'domestic_corp'">
+                    <t t-foreach='doc.domestic_corp_ids' t-as='line'>
+                        <tr>
+                            <td>Chairman of the BOT</td>
+                            <td>President/CEO</td>
+                            <td>Treasurer/CFO</td>
+                            <td>Corporate Secretary</td>
+                            <td>Vice-Chairman of the BOT</td>
+                            <td>Asst.Treasurer</td>
+                            <td>Asst.Corporate Secretary</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.president"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.treasurer"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.corporate_secretary"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.vice_chairman"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_treasurer"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_corp_secretary"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'foreign_corp'">
+                    <t t-foreach='doc.foreign_corp_ids' t-as='line'>
+                        <tr>
+                            <td>Country Manager</td>
+                            <td>Asst.Country Manager</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_manager"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'foreign_nsnp_corp'">
+                    <t t-foreach='doc.foreign_nsnp_corp_ids' t-as='line'>
+                        <tr>
+                            <td>Country Manager</td>
+                            <td>Asst.Country Manager</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_manager"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'roqh_foreign_corp'">
+                    <t t-foreach='doc.roqh_foreign_corp_ids' t-as='line'>
+                        <tr>
+                            <td>Country Manager</td>
+                            <td>Asst.Country Manager</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_manager"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="doc.organization_type == 'representative_office'">
+                    <t t-foreach='doc.representative_office_ids' t-as='line'>
+                        <tr>
+                            <td>Country Manager</td>
+                            <td>Asst.Country Manager</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="line.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="line.asst_manager"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </table>
+            <br/>
+            <h1>
+                V. Regulatory Information
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <td>Is the entity regulated or
+                        accredited by or
+                        is license holder issued by any of the following
+                        Government Regulatory Agencies:
+                    </td>
+                    <td>
+                        <span t-field="doc.regulatory_yes_no"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <h4>
+                        <p style="text-center;">Regulatory Agencies</p>
+                    </h4>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <td t-if="doc.bangko_sentral_pilipinas == True">
+                        <t t-if="doc.bangko_sentral_pilipinas">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Bangko Sentral ng Pilipinas
+                    </td>
+                    <td t-if="doc.land_transportation_franchising_regulatory_board == True">
+                        <t t-if="doc.land_transportation_franchising_regulatory_board">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Land Transportation Franchising and Regulatory Board
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.bureau_of_custom == True">
+                        <t t-if="doc.bureau_of_custom">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Bureau of Custom
+                    </td>
+                    <td t-if="doc.philippine_amusement_gaming_corporation == True">
+                        <t t-if="doc.philippine_amusement_gaming_corporation">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Philippine Amusement and Gaming Corporation
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.construction_industry_authority_philippines == True">
+                        <t t-if="doc.construction_industry_authority_philippines">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Construction Industry authority of the Philippines (PCAB)
+                    </td>
+                    <td t-if="doc.philippines_council_ngo_certification == True">
+                        <t t-if="doc.philippines_council_ngo_certification">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Philippine Council for NGO Certification
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.cooperative_development_authority == True">
+                        <t t-if="doc.cooperative_development_authority">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Cooperative Development Authority
+                    </td>
+                    <td t-if="doc.philippine_amusement_gaming_corporation == True">
+                        <t t-if="doc.philippine_amusement_gaming_corporation">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Philippine Amusement and Gaming Corporation
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.insurance_commission == True">
+                        <t t-if="doc.insurance_commission">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Insurance Commission
+                    </td>
+                    <td t-if="doc.professional_regulation_commission == True">
+                        <t t-if="doc.professional_regulation_commission">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Professional Regulation Commission
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.integrated_bar_philippines == True">
+                        <t t-if="doc.integrated_bar_philippines">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Integrated Bar of the Philippines
+                    </td>
+                    <td t-if="doc.others_regulatory == True">
+                        <t t-if="doc.others_regulatory">
+                            <input type="checkbox" id="checkbox_true" checked="True"/>
+                        </t>
+                        Others
+                    </td>
+                </tr>
+            </table>
+            <table style="font-size:20px;" width="100%">
+                <h3>
+                    Attachment
+                </h3>
+                <tr>
+                    <td t-if="doc.bangko_sentral_pilipinas == True">
+                        <t t-foreach="doc.attachment_bsp" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.bureau_of_custom == True">
+                        <t t-foreach="doc.attachment_boc" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.professional_regulation_commission == True">
+                        <t t-foreach="doc.attachment_prc" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.philippines_council_ngo_certification == True">
+                        <t t-foreach="doc.attachment_pcnc" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.cooperative_development_authority == True">
+                        <t t-foreach="doc.attachment_cda" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.insurance_commission == True">
+                        <t t-foreach="doc.attachment_ic" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.integrated_bar_philippines == True">
+                        <t t-foreach="doc.attachment_ibp" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.philippines_stock_exchange == True">
+                        <t t-foreach="doc.attachment_pse" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.construction_industry_authority_philippines == True">
+                        <t t-foreach="doc.attachment_ciap" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.philippine_amusement_gaming_corporation == True">
+                        <t t-foreach="doc.attachment_pagc" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+                <tr>
+                    <td t-if="doc.land_transportation_franchising_regulatory_board == True">
+                        <t t-foreach="doc.attachment_ltfrb" t-as="attachment">
+                            <br t-attf-href="/web/content/{{ attachment.id }}?download=true"
+                                t-attf-download="{{ attachment.name }}">
+                                <t t-esc="attachment.name"/>
+                            </br>
+                        </t>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <h1>
+                VI. Social Security Information
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <td>SSS ER No:</td>
+                    <td>
+                        <span t-field="doc.sss"/>
+                    </td>
+                    <td>SSS Filing:</td>
+                    <td>
+                        <span t-field="doc.sss_filing"/>
+                    </td>
+                    <td>SSS Payment:</td>
+                    <td>
+                        <span t-field="doc.sss_pay"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PHIC ER No:</td>
+                    <td>
+                        <span t-field="doc.phic"/>
+                    </td>
+                    <td>PHIC Filing:</td>
+                    <td>
+                        <span t-field="doc.phic_filing"/>
+                    </td>
+                    <td>PHIC Payment:</td>
+                    <td>
+                        <span t-field="doc.phic_pay"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>HDMF ER No:</td>
+                    <td>
+                        <span t-field="doc.hdmf"/>
+                    </td>
+                    <td>HDMF Filing:</td>
+                    <td>
+                        <span t-field="doc.hdmf_filing"/>
+                    </td>
+                    <td>HDMF Payment:</td>
+                    <td>
+                        <span t-field="doc.hdmf_pay"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <h1>
+                VII. Engagement Administration
+            </h1>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <h2>
+                        <p style="text-center;">Engagement Team</p>
+                    </h2>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <td>Associate:</td>
+                    <td>
+                        <span t-field="doc.user_id"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Supervisor:</td>
+                    <td>
+                        <span t-field="doc.supervisor_id"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Manager:</td>
+                    <td>
+                        <span t-field="doc.manager_id"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lead Partner:</td>
+                    <td>
+                        <span t-field="doc.lead_partner_id"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cluster:</td>
+                    <td>
+                        <span t-field="doc.cluster_id"/>
+                    </td>
+                </tr>
+            </table>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <h4>
+                        <p style="text-center;">Engagement Type</p>
+                    </h4>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <tr>
+                        <td t-if="doc.tax_services == True">
+                            <t t-if="doc.tax_services">
+                                <input type="checkbox" id="checkbox_true" checked="True"/>
+                            </t>
+                            Tax Services
+                        </td>
+                        <td t-if="doc.assurance_services == True">
+                            <t t-if="doc.assurance_services">
+                                <input type="checkbox" id="checkbox_true" checked="True"/>
+                            </t>
+                            Assurance and Audit Services
+                        </td>
+                    </tr>
+                    <tr>
+                        <td t-if="doc.advisory_services == True">
+                            <t t-if="doc.advisory_services">
+                                <input type="checkbox" id="checkbox_true" checked="True"/>
+                            </t>
+                            Advisory and Consultancy Services
+                        </td>
+                        <td t-if="doc.business_services == True">
+                            <t t-if="doc.business_services">
+                                <input type="checkbox" id="checkbox_true" checked="True"/>
+                            </t>
+                            Business Support and Process Outsourcing Services
+                        </td>
+                    </tr>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <t t-if="doc.tax_services == True ">
+                        <h4>
+                            <p style="text-center;">Tax Services</p>
+                        </h4>
+                        <tr>
+                            <td t-if="doc.tax_report == True">
+                                <t t-if="doc.tax_report">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Tax Reporting and Filing of Tax Returns
+                            </td>
+                            <td t-if="doc.tax_investigation == True">
+                                <t t-if="doc.tax_investigation">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Tax Investigation Support/Advocate Services
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.tax_review == True">
+                                <t t-if="doc.tax_review">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Tax Review and Compliance
+                            </td>
+                            <td t-if="doc.tax_advisory == True">
+                                <t t-if="doc.tax_advisory">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Tax Advisory, Opinion and Studies
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.tax_refund == True">
+                                <t t-if="doc.tax_refund">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Application for Tax Refund
+                            </td>
+                            <td t-if="doc.tax_rule == True">
+                                <t t-if="doc.tax_rule">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Request for Tax Rulings
+                            </td>
+                        </tr>
+                    </t>
+                </tr>
+            </table>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <t t-if="doc.assurance_services == True ">
+                        <h4>
+                            <p style="text-center;">Assurance and Audit Services</p>
+                        </h4>
+                        <tr>
+                            <td t-if="doc.review == True">
+                                <t t-if="doc.review">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Financial Statement Reviews and Audits
+                            </td>
+                            <td t-if="doc.extend_audit == True">
+                                <t t-if="doc.extend_audit">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Special/Extended Audits
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.assurance_engagement == True">
+                                <t t-if="doc.assurance_engagement">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Assurance Engagements on Pro Forma Financial Information
+                            </td>
+                        </tr>
+                    </t>
+                </tr>
+            </table>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <t t-if="doc.advisory_services == True ">
+                        <h4>
+                            <p style="text-center;">Advisory and Consultancy Services</p>
+                        </h4>
+                        <tr>
+                            <td t-if="doc.business_review == True">
+                                <t t-if="doc.business_review">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Business Process Review
+                            </td>
+                            <td t-if="doc.internal_audit == True">
+                                <t t-if="doc.internal_audit">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Internal Audit and Controls Evaluation
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.risk_management == True">
+                                <t t-if="doc.risk_management">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Enterprise Risk Management
+                            </td>
+                            <td t-if="doc.procedures_engagement == True">
+                                <t t-if="doc.procedures_engagement">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Agreed-upon Procedures Engagements
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.corporate_finance == True">
+                                <t t-if="doc.corporate_finance">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Corporate Finance and Financial Planning
+                            </td>
+                            <td t-if="doc.organizational == True">
+                                <t t-if="doc.organizational">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Organizational Structures, Mergers and Acquisition Advisory
+                            </td>
+                        </tr>
+                    </t>
+                </tr>
+            </table>
+            <table style="font-size:20px;" width="100%">
+                <tr>
+                    <style>
+                        table, th, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        }
+                        th, td {
+                        padding: 5px;
+                        text-align: left;
+                        }
+                    </style>
+                    <t t-if="doc.business_services == True ">
+                        <h4>
+                            <p style="text-center;">Business Support and Process Outsourcing Services</p>
+                        </h4>
+                        <tr>
+                            <td t-if="doc.accounting == True">
+                                <t t-if="doc.accounting">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Accounting Process Outsourcing
+                            </td>
+                            <td t-if="doc.compilation == True">
+                                <t t-if="doc.compilation">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Compilation Engagements
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.accounts_restructuring == True">
+                                <t t-if="doc.accounts_restructuring">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Accounts Restructuring
+                            </td>
+                            <td t-if="doc.amendment == True">
+                                <t t-if="doc.amendment">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Amendment of Articles of Incorporation and By-Laws
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.preparation_gis == True">
+                                <t t-if="doc.preparation_gis">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Preparation of General Information Sheet
+                            </td>
+                            <td t-if="doc.business_registration == True">
+                                <t t-if="doc.business_registration">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Start-up,Renewal and Closure of Business Registrations
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-if="doc.staff_arrangement == True">
+                                <t t-if="doc.staff_arrangement">
+                                    <input type="checkbox" id="checkbox_true" checked="True"/>
+                                </t>
+                                Staffing Augmentation Arrangements
+                            </td>
+                        </tr>
+                    </t>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-size:20px;" width="100%">
+                <h5>
+                    <p style="text-center;">Escalation Matrix</p>
+                </h5>
+                <style>
+                    table, th, td {
+                    border: 2px solid black;
+                    border-collapse: collapse;
+                    }
+                    th, td {
+                    padding: 5px;
+                    text-align: left;
+                    }
+                </style>
+                <tr>
+                    <td>Level</td>
+                    <td>Time Frame</td>
+                    <td>Point of Contact</td>
+                    <td>Contact Number</td>
+                    <td>Email Address</td>
+                </tr>
+                <t t-foreach='doc.escalation_ids' t-as='line'>
+                    <tr>
+                        <td>
+                            <span t-esc="line.level"/>
+                        </td>
+                        <td>
+                            <span t-esc="line.timeframe"/>
+                        </td>
+                        <td>
+                            <span t-esc="line.name"/>
+                        </td>
+                        <td>
+                            <span t-esc="line.contact_number"/>
+                        </td>
+                        <td>
+                            <span t-esc="line.email"/>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+        </t>
+    </template>
+
+    <record id="paperformat_custom" model="report.paperformat">
+        <field name="name">Custom Paper</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10.00</field>
+        <field name="margin_bottom">10.00</field>
+        <field name="margin_left">7.0</field>
+        <field name="margin_right">7.0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">125</field>
+    </record>
+
+    <record id="action_report_client_profile" model="ir.actions.report">
+        <field name="name">Download to PDF</field>
+        <field name="model">client.profile</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">amyu1.report_clientprofile_template</field>
+        <field name="report_file">amyu1.cpms_preview_reports</field>
+        <field name="print_report_name">'Client Profile - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_client_profile"/>
+        <field name="binding_type">report</field>
+        <!--        <field name="paperformat_id" ref="amyu1.paperformat_custom"/>-->
+    </record>
+</odoo>

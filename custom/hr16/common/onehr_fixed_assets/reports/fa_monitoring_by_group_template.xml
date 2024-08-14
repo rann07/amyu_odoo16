@@ -1,0 +1,147 @@
+<odoo>
+
+    <record id="fa_monitoring_by_group_report" model="ir.actions.report">
+        <field name="name">onehr_fixed_assets.fa_monitoring_by_group_report_view</field>
+        <field name="model">fa.monitoring.by.group.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">onehr_fixed_assets.fa_monitoring_by_group_report_view</field>
+        <field name="report_file">onehr_fixed_assets.fa_monitoring_by_group_report_view</field>
+        <field name="binding_model_id" ref="onehr_fixed_assets.model_fa_monitoring_by_group_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="fa_monitoring_by_group_report_view">
+        <t t-call="web.html_container">
+            <t t-call="onehr_fixed_assets.fa_reports_layout">
+                <style type="text/css">
+                    tr:nth-child(even) { background-color: #f2f2f2; }
+                </style>
+                <div>
+                    <div class="page">
+                        <p class="text-center"
+                           style="font-size: 11.5px; padding: 0px; margin-bottom: 0px; font-weight: bold;">MANAGEMENT
+                            SYSTEM DEPARTMENT
+                        </p>
+                        <p class="text-center"
+                           style="font-size: 18.5px; font-weight: bold; margin-bottom: 0px; font-weight: bold;">FIXED
+                            ASSETS COUNT SHEET
+                        </p>
+                        <p class="text-center" style="font-size: 10.5px; font-weight: bold; margin-bottom: 0px; ">
+                            Groups
+                        </p>
+                        <p class="text-center" style="font-size: 10.5px; font-weight: bold;">
+                            <t t-esc="header"/>
+                        </p>
+                        <div style="page-break-after: auto;">
+                            <table class="table-sm" style="width: 100%; font-size: 10.5px; padding: 0px;">
+                                <thead class="thead-light">
+                                    <th class="text-center">Ref#</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Asset Code</th>
+                                    <th class="text-center">Short Description</th>
+                                    <th class="text-center">Full Description</th>
+                                    <th class="text-center">QTY</th>
+                                    <th class="text-center">Custodian</th>
+                                    <th class="text-center">Designation</th>
+                                </thead>
+                                <tbody>
+                                    <t t-set="flag" t-value="[]"/>
+                                    <t t-foreach="docs" t-as="doc">
+                                        <tr style="page-break-inside: avoid;">
+                                            <span t-if="doc['group_id'] != flag">
+                                                <tr style="background-color: #9f654f;">
+                                                    <td class="text-center">
+                                                        <strong>
+                                                            <span>Group:</span>
+                                                        </strong>
+                                                        <t t-set="flag" t-value="doc['group_id']"/>
+                                                    </td>
+                                                    <td style="font-size: 18px;">
+                                                        <strong>
+                                                            <span t-esc="doc['group']"/>
+                                                        </strong>
+                                                        <t t-set="flag" t-value="doc['group_id']"/>
+                                                    </td>
+                                                    <td>
+                                                        <span></span>
+                                                    </td>
+                                                    <td>
+                                                        <span></span>
+                                                    </td>
+                                                    <td>
+                                                        <span></span>
+                                                    </td>
+                                                    <td>
+                                                        <span></span>
+                                                    </td>
+                                                    <td>
+                                                        <span></span>
+                                                    </td>
+                                                    <td>
+                                                        <span></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <span></span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['date_issued']"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['asset_code']"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['short_description']"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['full_description']"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['asset_qty']"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['custodian']"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span t-esc="doc['job_title']"/>
+                                                    </td>
+                                                </tr>
+                                            </span>
+                                            <span t-else="">
+                                                <td class="text-center">
+                                                    <span></span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['date_issued']"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['asset_code']"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['short_description']"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['full_description']"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['asset_qty']"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['custodian']"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-esc="doc['job_title']"/>
+                                                </td>
+                                            </span>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

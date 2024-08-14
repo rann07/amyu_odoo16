@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bcs_collection_tree_view" model="ir.ui.view">
+            <field name="name">bcs_collection_tree_view</field>
+            <field name="model">bcs.collection</field>
+            <field name="arch" type="xml">
+                <tree create="0" default_order='transaction desc'>
+                    <field name="transaction"/>
+                    <field name="paid_by_id"/>
+                    <field name="billing_ids"/>
+                    <field name="state" optional="hide"/>
+                    <field name="payment_collection"/>
+                    <field name="collected_by"/>
+                    <field name="date_collected"/>
+                    <field name="depository_bank"/>
+                    <field name="payment_mode"/>
+                    <field name="bank"/>
+                    <!-- <field name="check_number"/> -->
+                    <!-- <field name="check_date"/> -->
+                    <!-- <field name="transaction_generated"/> -->
+                    <!-- <field name="transaction_date"/> -->
+                    <field name="amount"/>
+                    <field name="remarks" optional="hide"/>
+                    <field name="unissued_amount_for_ar" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bcs_collection_form_view" model="ir.ui.view">
+            <field name="name">bcs_collection_form_view</field>
+            <field name="model">bcs.collection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!-- <button name="ops_manager_submitted_action" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                groups="bcs.ops_manager"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="fad_supervisor_verified_action" string="Verified" type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to continue to your verification?"
+                                groups="bcs.fad_supervisor"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button name="fsd_manager_approved_action" string="Approved" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your approval?"
+                                groups="bcs.fad_manager"
+                                attrs="{'invisible': [('state', '!=', 'verified')]}"/> -->
+
+                        <!-- FOR TESTING ONLY -->
+                        <button name="fad_staff_submitted_action" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="fad_supervisor_verified_action" string="Verify" type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to continue to your verification?"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button name="fad_manager_approved_action" string="Approve" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your approval?"
+                                attrs="{'invisible': [('state', '!=', 'verified')]}"/>
+
+                        <field name="state" widget="statusbar" status_invisible="draft,submitted,verified,approved"
+                               attrs="{'invisible':[('state', '==','approved')]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="allow_edit_billing_ids" invisible="1"/>
+                            <field name="transaction"/>
+                            <field name="paid_by_id" options="{'no_create': True,'no_open': True }"/>
+                            <field name="recent_billings_per_client" invisible="1"/>
+                            <field name="billing_ids" widget="many2many_tags" domain="[('id', 'in', recent_billings_per_client)]"
+                                   attrs="{'readonly':[('allow_edit_billing_ids', '==', False)] }"
+                                   options="{'no_create': True, 'no_open': True }" />
+                            <field name="payment_collection" readonly="1"/>
+                            <field name="payment_collection" invisible="1"/>
+                            <field name="collected_by"/>
+                            <field name="date_collected"/>
+                            <!-- <field name="last_update"/> -->
+                            <field name="depository_bank"/>
+                            <field name="payment_mode"/>
+                            <field name="bank" attrs="{'invisible':[('payment_mode', '==','cash')]}"/>
+                            <field name="check_number" attrs="{'invisible':[('payment_mode', '!=','check')]}"/>
+                            <field name="check_date" attrs="{'invisible':[('payment_mode', '!=','check')]}"/>
+                            <field name="transaction_generated" attrs="{'invisible':[('payment_mode', '!=','online')]}"/>
+                            <field name="transaction_date" attrs="{'invisible':[('payment_mode', '!=','online')]}"/>
+                            <field name="amount"/>
+                            <field name="remarks"/>
+                        </group>
+                        <group col="4"
+                            attrs="{'invisible': [('unissued_amount_for_ar', '=', 0)]}" >
+                            <group>
+                                <field name="unissued_amount_for_ar"/>
+                            </group>
+                            <group attrs="{'invisible': [('state', '!=', 'approved')]}" >
+                                <button name="manual_posting" string="Manual Posting" class="oe_highlight text-nowrap" type="object"/>
+                            </group>
+                            <group string=" "></group>
+                            <group string=" "></group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- All -->
+        <record id="bcs_collection_view_action" model="ir.actions.act_window">
+            <field name="name">Collection</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="bcs_collection_tree_view"/>
+        </record>
+
+        <!-- Approved -->
+        <record id="approved_bcs_collection_view_action" model="ir.actions.act_window">
+            <field name="name">Collection</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','approved')]</field>
+            <field name="context">{'edit': False, 'create': False}</field>
+            <field name="view_id" ref="bcs_collection_tree_view"/>
+        </record>
+
+        <!-- Verified -->
+        <record id="verified_bcs_collection_view_action" model="ir.actions.act_window">
+            <field name="name">Verified (For Approval)</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','verified')]</field>
+            <field name="view_id" ref="bcs_collection_tree_view"/>
+        </record>
+
+        <!-- Submitted -->
+        <record id="submitted_bcs_collection_view_action" model="ir.actions.act_window">
+            <field name="name">Submitted (For Verification)</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','submitted')]</field>
+            <field name="view_id" ref="bcs_collection_tree_view"/>
+        </record>
+
+        <!-- Draft -->
+        <record id="draft_bcs_collection_view_action" model="ir.actions.act_window">
+            <field name="name">Draft</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <field name="view_id" ref="bcs_collection_tree_view"/>
+        </record>
+
+        <!-- Collection New Window -->
+        <record id="bcs_collection_form_action" model="ir.actions.act_window">
+            <field name="name">Collection</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="bcs_collection_form_view"/>
+        </record>
+        
+        <!--  For Manual Posting -->
+        <record id="bcs_unissued_payments_tree_view" model="ir.ui.view">
+            <field name="name">bcs_collection_tree_view</field>
+            <field name="model">bcs.collection</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="transaction"/>
+                    <field name="paid_by_id"/>
+                    <field name="billing_ids"/>
+                    <field name="payment_collection"/>
+                    <field name="collected_by"/>
+                    <field name="date_collected"/>
+                    <field name="depository_bank"/>
+                    <field name="payment_mode"/>
+                    <field name="bank"/>
+                    <field name="amount"/>
+                    <field name="unissued_amount_for_ar"/>
+                    <field name="remarks"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bcs_unissued_payments_view_action" model="ir.actions.act_window">
+            <field name="name">Needs Manual Posting</field>
+            <field name="res_model">bcs.collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="bcs_collection_tree_view"/>
+            <field name="domain">[('unissued_amount_for_ar', '>', 0)]</field>
+        </record>
+
+        <!-- For Transaction ID -->
+        <record model="ir.sequence" id="collection_id_seq">
+            <field name="name">Collection Transaction ID Sequence"</field>
+            <field name="code">collection.id.seq</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_next">1</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="hr_leave_type_vl" model="hr.leave.type">
+        <field name="name">VL</field>
+        <field name="description">Vacation Leave</field>
+        <field name="with_annual_allocation">True</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+    <record id="hr_leave_type_sl" model="hr.leave.type">
+        <field name="name">SL</field>
+        <field name="description">Sick Leave</field>
+        <field name="with_annual_allocation">True</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+    <record id="hr_leave_type_spl" model="hr.leave.type">
+        <field name="name">SPL</field>
+        <field name="description">Solo Parent Leave</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+    <record id="hr_leave_type_ml" model="hr.leave.type">
+        <field name="name">ML</field>
+        <field name="description">Maternity Leave</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+    <record id="hr_leave_type_pl" model="hr.leave.type">
+        <field name="name">PL</field>
+        <field name="description">Paternity Leave</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+    <record id="hr_leave_type_ol" model="hr.leave.type">
+        <field name="name">OL</field>
+        <field name="description">Other Leave</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+    <record id="hr_leave_type_lwop" model="hr.leave.type">
+        <field name="name">LWOP</field>
+        <field name="description">Leave w/o Pay</field>
+        <!--        <field name="res_model_id" ref="hrad.model_hr_leave_type"/>-->
+    </record>
+
+</odoo>

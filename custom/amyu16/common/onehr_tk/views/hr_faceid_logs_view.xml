@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.actions.server" id="action_get_crosschex_log">
+        <field name="name">Get CrossChex Cloud Logs</field>
+        <field name="model_id" ref="onehr_tk.model_hr_faceid_logs"/>
+        <field name="binding_model_id" ref="onehr_tk.model_hr_faceid_logs"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.get_crosschex_cloud_logs()
+        </field>
+    </record>
+
+    <record id="hr_faceid_logs_tree" model="ir.ui.view">
+        <field name="name">hr.faceid.logs.tree</field>
+        <field name="model">hr.faceid.logs</field>
+        <field name="arch" type="xml">
+            <tree string="Face ID Logs" default_order="log_stamp desc">
+                <field name="hr_employee_id"/>
+                <field name="log_stamp"/>
+                <field name="manual_override"/>
+                <field name="mo_reason"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_faceid_logs_form" model="ir.ui.view">
+        <field name="name">hr.faceid.logs.form</field>
+        <field name="model">hr.faceid.logs</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="hr_employee_id"
+                               options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                               attrs="{'readonly': [('manual_override','=',False)]}"/>
+                        <field name="log_stamp" attrs="{'readonly': [('manual_override','=',False)]}"/>
+                        <field name="manual_override" readonly="1"/>
+                        <field name="mo_reason" attrs="{'readonly': [('manual_override','=',False)]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_faceid_logs_search">
+        <field name="name">Search Face ID Logs</field>
+        <field name="model">hr.faceid.logs</field>
+        <field name="arch" type="xml">
+            <search string="Search Logs">
+                <field name="hr_employee_id"/>
+                <field name="log_stamp"/>
+                <filter name="group_employee_id" string="Employee" icon="terp-partner"
+                        context="{'group_by':'hr_employee_id'}"/>
+                <filter name="group_stamp" string="Log Stamp" icon="terp-partner"
+                        context="{'group_by':'log_stamp'}"/>
+                <filter string="Current Month" name="current_month"
+                        domain="[('log_stamp','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('log_stamp','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_faceid_logs_rule" model="ir.rule">
+        <field name="name">Face ID Logs multi company rule</field>
+        <field name="model_id" ref="model_hr_faceid_logs"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="hr_faceid_log_action" model="ir.actions.act_window">
+        <field name="name">Face ID Logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.faceid.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_faceid_logs_tree"/>
+        <field name="search_view_id" ref="hr_faceid_logs_search"/>
+        <field name="context">{'search_default_current_month': 1,'search_default_group_employee_id': 1,
+            'search_default_group_stamp': 1}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Face Identification Logs
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hr_faceid_logs"
+              name="Face ID Logs / Manual Override"
+              parent="menu_tk_tasks"
+              action="hr_faceid_log_action"
+              sequence="1"/>
+</odoo>

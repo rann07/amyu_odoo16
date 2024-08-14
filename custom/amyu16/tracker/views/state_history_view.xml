@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_state_record_tree" model="ir.ui.view">
+            <field name="name">state.record.tree</field>
+            <field name="model">state.history</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="1">
+                    <field name="object_id"/>
+                    <field name="state" readonly="1"/>
+                    <field name="timestamp" readonly="1"/>
+                    <field name="user_id" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_state_record_tree" model="ir.actions.act_window">
+            <field name="name">LogSheet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">state.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_state_record_tree"/>
+        </record>
+    </data>
+</odoo>

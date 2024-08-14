@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="kanban_main_tree_view" model="ir.ui.view">
+            <field name="name">kanban.main.tree.view</field>
+            <field name="model">main.view</field>
+            <field name="arch" type="xml">
+                <tree export_xlsx="0" create="0">
+                    <field name="name" readonly="1"/>
+                    <field name="user_id" readonly="1"/>
+                    <field name="state" widget="badge"
+                           decoration-danger="state == 'iar'"
+                           decoration-info="state == 'printing'"
+                           decoration-muted="state == 'sorting'"
+                           decoration-warning="state == 'qcc'"
+                           decoration-primary="state == 'filing'"
+                           decoration-success="state == 'filed'" readonly="1"/>
+                    <field name="date_start" readonly="1"/>
+                    <field name="date" invisible="1"/>
+                    <field name="date_end" readonly="1"/>
+                    <field name="total_time" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="main_kanban_view" model="ir.ui.view">
+            <field name="name">main.kanban.view</field>
+            <field name="model">main.view</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" create="False">
+                    <field name="state"/>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="oe_kanban_details">
+                                        <div class="oe_kanban_title">
+                                            <div>
+                                                <span style="float:right">
+                                                    <p class="text-info">
+                                                        <field name="revision_id"/>
+                                                    </p>
+                                                </span>
+                                            </div>
+                                            <h3>
+                                                <field name="name"/>
+                                            </h3>
+                                        </div>
+                                        <!--                                        <span style="font-weight: bold; color: blue;">-->
+                                        <!--                                            <field name="state"/>-->
+                                        <!--                                        </span>-->
+                                        <div class="oe_kanban_description">
+                                            Associate:
+                                            <span style="font-weight: regular; color: green;">
+                                                <field name="user_id"/>
+                                            </span>
+                                        </div>
+                                        <div class="oe_kanban_date">
+                                            Date Start:
+                                            <span style="font-weight: regular; color: blue;">
+                                                <field name="date" invisible="1"/>
+                                                <field name="date_start"/>
+                                            </span>
+                                        </div>
+                                        <div class="oe_kanban_date">
+                                            Date End:
+                                            <span style="font-weight: regular; color: red;">
+                                                <field name="date_end"
+                                                       attrs="{'invisible': [('state', '!=', 'filed')]}"/>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span style="float:left">
+                                                <p class="text-info">
+                                                    <field name="label_note_ids"/>
+                                                </p>
+                                            </span>
+                                        </div>
+                                        <progressbar field="priority"
+                                                     colors='{"3": "success", "2": "warning", "1": "danger", "0": "info"}'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="main_view_search_view" model="ir.ui.view">
+            <field name="name">main.view.search.view</field>
+            <field name="model">main.view</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="team_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_employee" string="Employee" context="{'group_by': 'team_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="team_id" enable_counters="1" string="Team" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="status_view_action" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="res_model">main.view</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+    </data>
+</odoo>

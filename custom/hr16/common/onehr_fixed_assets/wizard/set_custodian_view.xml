@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="set_custodian_form" model="ir.ui.view">
+            <field name="name">set.custodian.form</field>
+            <field name="model">set.custodian.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Set Custodian">
+                    <group string="Assign this Fixed Asset to">
+                        <field name="custodian" required="1"/>
+                        <field name="company_id"
+                               attrs="{'invisible': [('custodian','in',('none','unassigned'))]}"/>
+                        <field name="hr_employee_id"
+                               options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                               attrs="{'invisible': [('custodian','!=','employee')], 'required': [('custodian','=','employee')]}"
+                               context="{'company_id': company_id}"
+                        />
+                        <field name="hr_department_id"
+                               options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                               attrs="{'invisible': [('custodian','!=','department')], 'required': [('custodian','=','department')]}"
+                               context="{'company_id': company_id}"
+                        />
+                        <field name="none_employee"
+                               attrs="{'invisible': [('custodian','!=','none')], 'required': [('custodian','=','none')]}"
+                        />
+                    </group>
+                    <footer>
+                        <button name="set_custodian" string="Confirm"
+                                type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="set_custodian_act" model="ir.actions.act_window">
+            <field name="name">Set Custodian</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">set.custodian.wiz</field>
+            <field name="view_id" ref="set_custodian_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="fa_reports_header_footer">
+        <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+            <div style="border-bottom: 2px solid black"></div>
+            <div class="o_background_header">
+                <div class="float-right">
+                    <h3 class="mt0 text-right" t-field="company_id.report_header"/>
+                </div>
+                <img t-if="company_id.logo" t-att-src="image_data_uri(company_id.logo)" class="float-left" alt="Logo"/>
+                <div class="float-left company_address">
+                    <div>
+                        <strong t-field="company_id.partner_id.name"/>
+
+                    </div>
+                    <div class="col-xs-6" name="company_address" style="font-size:11px">
+                        <t t-if="company_id.partner_id.street">
+                            <span t-field="company_id.street"/>
+                            <br/>
+                        </t>
+                        <t t-if="company_id.partner_id.street2">
+                            <span t-field="company_id.street2"/>
+                            <br/>
+                        </t>
+                        <t t-if="company_id.partner_id.city">
+                            <span t-field="company_id.city"/>
+                        </t>
+                        <t t-if="company_id.partner_id.zip">
+                            <span t-field="company_id.zip"/>
+                            <br/>
+                        </t>
+                        <t t-if="company_id.partner_id.phone">
+                            Tel:
+                            <span t-field="company_id.partner_id.phone"/>
+                        </t>
+                    </div>
+                </div>
+                <div style="padding-top: 100px; border-bottom: 2px solid black; "></div>
+                <div class="clearfix mb8 float-right"/>
+            </div>
+        </div>
+        <div t-attf-class="o_company_#{company.id}_layout article o_report_layout_standard">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+        <div style="border-bottom: 2px solid black"></div>
+        <div t-attf-class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <div t-if="report_type == 'pdf'" class="text-muted" style="font-size:10px">
+                    Page:
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="fa_reports_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <t t-call="onehr_fixed_assets.fa_reports_header_footer">
+            <t t-raw="0"/>
+        </t>
+    </template>
+
+    <record model="report.paperformat" id="paperformat_fa_qr">
+        <field name="name">paperformat.fa.qr</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">54</field>
+        <field name="page_width">85</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">3</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">8</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+</odoo>

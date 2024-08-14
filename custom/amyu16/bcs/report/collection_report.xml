@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="collection_report_xlsx"
+        model="bcs.collection"
+        string="Download Report as Excel"
+        report_type="xlsx"
+        name="bcs.collection_report"
+        file="Collection Report"
+        attachment_use="False" />
+</odoo>

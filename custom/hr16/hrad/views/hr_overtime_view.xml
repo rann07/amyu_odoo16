@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_overtime_tree">
+            <field name="name">Overtime Tree</field>
+            <field name="model">hr.filed.overtime</field>
+            <field name="arch" type="xml">
+                <tree default_order="department_id, hr_employee_id, ot_date desc">
+                    <field name="company_id" invisible="1"/>
+                    <field name="department_id"/>
+                    <field name="hr_employee_id"/>
+                    <field name="ot_date"/>
+                    <field name="ot_start" widget='float_time'/>
+                    <field name="ot_end" widget='float_time'/>
+                    <field name="ot_reason"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_overtime_form">
+            <field name="name">Overtime Form</field>
+            <field name="model">hr.filed.overtime</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="hr_employee_id"
+                                   options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="department_id" readonly="1"
+                                   options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="ot_date"/>
+                            <field name="ot_start" widget='float_time'/>
+                            <field name="ot_end" widget='float_time'/>
+                            <field name="ot_reason"/>
+                            <field name="status"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_overtime_search">
+            <field name="name">Search Overtime</field>
+            <field name="model">hr.filed.overtime</field>
+            <field name="arch" type="xml">
+                <search string="Search Overtime">
+                    <field name="hr_employee_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_department" string="Department" domain="[]"
+                                context="{'group_by':'department_id'}"/>
+                        <filter name="group_employee" string="Employee" domain="[]"
+                                context="{'group_by':'hr_employee_id'}"/>
+                        <filter string="Current Month" name="current_month"
+                                domain="[('ot_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('ot_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_overtime_action_window">
+            <field name="name">Filed Overtime</field>
+            <field name="res_model">hr.filed.overtime</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_overtime_tree"/>
+            <field name="search_view_id" ref="hr_overtime_search"/>
+            <field name="context">{'search_default_current_month': 1,'search_default_group_department': 1,
+                'search_default_group_employee': 1}
+            </field>
+        </record>
+
+        <menuitem name="Filed Overtime"
+                  id="menu_hr_overtime_tasks"
+                  parent="menu_hr_tasks"
+                  groups="msd_administrators,hr.group_hr_manager,hr.group_hr_user"
+                  action="hr_overtime_action_window"/>
+
+        <record id="hrad_overtime_rule" model="ir.rule">
+            <field name="name">Overtime multi company rule</field>
+            <field name="model_id" ref="model_hr_filed_overtime"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

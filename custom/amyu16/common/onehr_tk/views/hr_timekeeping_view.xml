@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem
+                id="menu_tk_root"
+                name="Timekeeping"
+                web_icon="hr_timesheet,static/description/icon.png"
+                sequence="7"/>
+        <menuitem
+                id="menu_tk_tasks"
+                name="Tasks"
+                parent="menu_tk_root"/>
+        <menuitem
+                id="menu_tk_reports"
+                name="Reporting"
+                parent="menu_tk_root"/>
+    </data>
+</odoo>

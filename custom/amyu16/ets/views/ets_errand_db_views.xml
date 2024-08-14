@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="db_errand_view_form" model="ir.ui.view">
+        <field name="name">db.errand.form</field>
+        <field name="model">errand</field>
+        <field name="arch" type="xml">
+            <form string="Errand Form">
+                <sheet>
+                    <group>
+                        <field name="status" />
+                        <field name="date_requested"/>
+                        <field name="requested_by"/>
+                        <field name="client"/>
+                        <field name="deadline"/>
+                        <field name="location" />
+                        <field name="liaison"/>
+                        <!-- <field name="is_govt"/> -->
+                        <field name="type_of_request"/>
+                    </group>
+
+                    <!-- delivery or pickup -->
+                    <group attrs="{'invisible': [('type_of_request','!=','delivery'), ('type_of_request','!=','pickup')] }">
+                        <field name="company_for_delivery_pickup"/>
+                        <field name="address"/>
+                        <field name="contact_person"/>
+                        <field name="contact_number"/>
+                        <field name="delivery_item" attrs="{'invisible': [('type_of_request','!=','delivery')] }"/>
+                        <field name="pickup_item" attrs="{'invisible': [('type_of_request','!=','pickup')] }"/>
+                    </group>
+                    
+                    <!-- filing -->
+                    <group attrs="{'invisible': [('type_of_request','!=','filing')] }">
+                        <field name="agency_for_filing"/>
+                        <field name="branch_rdo"/>
+                        <field name="with_payment"/>
+                        <field name="documents_for_filing"/>
+                    </group>
+
+                    <!-- payment -->
+                    <group attrs="{'invisible': [('type_of_request','!=','payment')] }">
+                        <field name="payee_for_payment"/>
+                        <field name="amount"/>
+                        <field name="mode_of_payment"/>
+                        <field name="issuing_bank_branch"/>
+                        <field name="check_number"/>
+                        <field name="check_date"/>
+                    </group>
+
+                    <group attrs="{'invisible': [('status','!=','closed'), ('status','!=','in_process')] }">
+                        <field name="date_received" />
+                        <field name="received_by" />
+                        <field name="date_completed" />
+                    </group>
+                    
+                    <button name="set_status_closed" string="Close Errand" 
+                            class="oe_highlight" type="object" 
+                            attrs="{'invisible': [('status','!=','in_process')] }"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="db_errand_action" model="ir.actions.act_window">
+        <field name="name">Errand Database</field>
+        <field name="res_model">errand</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('ets.errand_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('db_errand_view_form')})]"/>
+        <field name="domain">['|', ('status','=','in_process'), ('status', '=', 'closed')]</field>
+    </record>
+</odoo>

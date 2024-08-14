@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="associates_profile_kanban_view" model="ir.ui.view">
+            <field name="name">associate.profile.kanban.view</field>
+            <field name="model">associate.profile</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="users_id"/>
+                    <field name="id"/>
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <field name="image" widget="image" class="oe_avatar" options="{'zoom': True}"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="oe_kanban_title">
+                                        <h2>
+                                            <field name="users_id"/>
+                                        </h2>
+                                    </div>
+                                    <div class="oe_kanban_description">
+                                        <span style="font-weight: bold; color: blue;">
+                                            <field name="job_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_description">
+                                        <span style="font-weight: regular; color: green;">
+                                            <field name="cluster_id"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="associates_profile_tree_view" model="ir.ui.view">
+            <field name="name">associate.profile.tree.view</field>
+            <field name="model">associate.profile</field>
+            <field name="arch" type="xml">
+                <tree create="False" export_xlsx="0">
+                    <field name="users_id"/>
+                    <field name="job_id"/>
+                    <field name="supervisor_id"/>
+                    <field name="manager_id"/>
+                    <field name="cluster_id"/>
+                    <field name="lead_partner_id"/>
+                    <field name="director_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="associates_profile_form_view" model="ir.ui.view">
+            <field name="name">associate.profile.form.view</field>
+            <field name="model">associate.profile</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <div>
+                        <field name="image" widget="image" nolabel="1" class="oe_avatar"/>
+                    </div>
+                    <group>
+                        <field name="user_id" invisible="1"/>
+                        <field name="users_id" options="{'no_open': True,'no_create': True}"/>
+                        <group>
+                            <field name="supervisor_id" options="{'no_open': True,'no_create': True}"/>
+                            <field name="manager_id" options="{'no_open': True,'no_create': True}"/>
+                            <field name="director_id" options="{'no_open': True,'no_create': True}"/>
+                            <field name="lead_partner_id" options="{'no_open': True,'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="team_id" options="{'no_open': True,'no_create': True}"/>
+                            <field name="cluster_id" options="{'no_open': True,'no_create': True}"/>
+                            <field name="job_id" options="{'no_open': True,'no_create': True}"/>
+                        </group>
+                    </group>
+                    <field name="client_profile_ids" style="pointer-events:none;">
+                        <tree create="False" delete="False" edit="False">
+                            <field name="name"/>
+                            <field name="state"
+                                   decoration-muted="state == 'draft'"
+                                   decoration-info="state == 'supervisor'"
+                                   decoration-primary="state == 'manager'"
+                                   decoration-success="state == 'approved'"
+                                   widget="badge"/>
+                        </tree>
+                    </field>
+                </form>
+            </field>
+        </record>
+
+        <record id="associates_profile_search_view" model="ir.ui.view">
+            <field name="name">associate.profile.search.view</field>
+            <field name="model">associate.profile</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="users_id"
+                           filter_domain="['|',('users_id', 'ilike', self),('client_profile_ids', 'ilike', self)]"
+                           string="Associate"/>
+                    <field name="client_profile_ids" string="Client"/>
+                    <searchpanel>
+                        <!--                        <field name="job_id" enable_counters="1" groups="amyu1.supervisor_group" string="My Team"/>-->
+                        <!--                        <field name="team_id" enable_counters="1" groups="amyu1.manager_group"-->
+                        <!--                               string="Manager Overview"/>-->
+                        <!--                        <field name="job_id" enable_counters="1" groups="amyu1.manager_group"/>-->
+                        <!--                        <field name="team_id" enable_counters="1" groups="amyu1.cluster_group" string="Team Overview"/>-->
+                        <!--                        <field name="job_id" enable_counters="1" groups="amyu1.cluster_group" string="Associates"/>-->
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="maintain_associates_profile_action" model="ir.actions.act_window">
+            <field name="name">Members Profile</field>
+            <field name="res_model">associate.profile</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="associates_profile_kanban_view"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+"id","name","description","module_name"
+"amyuhris","HRIS","Human Resources Information System","hrad"
+"amyucpms","CPMS","Client Profile Management System","amyu1"
+"amyubcs","BCS","Billing and Collection System","bcs"
+"amyuets","ETS","Errand Tracking System","ets"

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="executive_employees_act_window" model="ir.actions.act_window">
+            <field name="name">Executives</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('executive','=',True)]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="hr.view_employee_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new employee
+                </p>
+                <p>
+                    With just a quick glance on the Odoo employee screen, you
+                    can easily find all the information you need for each person;
+                    contact data, job position, availability, etc.
+                </p>
+            </field>
+        </record>
+
+        <record id="non_executive_employees_act_window" model="ir.actions.act_window">
+            <field name="name">Non-Executives</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('executive','=',False)]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="hr.view_employee_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new employee
+                </p>
+                <p>
+                    With just a quick glance on the Odoo employee screen, you
+                    can easily find all the information you need for each person;
+                    contact data, job position, availability, etc.
+                </p>
+            </field>
+        </record>
+
+        <record id="hr_employee_public_action" model="ir.actions.act_window">
+            <field name="name">Employee Directory</field>
+            <field name="res_model">hr.employee.public</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="hr.hr_employee_public_view_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new employee
+                </p>
+                <p>
+                    With just a quick glance on the Odoo employee screen, you
+                    can easily find all the information you need for each person;
+                    contact data, job position, availability, etc.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_hr_root"
+                name="Human Resources"
+                groups="hr.group_hr_manager,hr.group_hr_user,base.group_user"
+                web_icon="hr,static/description/icon.png"
+                action="non_executive_employees_act_window"
+                sequence="6"/>
+
+        <menuitem
+                id="menu_hr_employees"
+                name="Employees"
+                parent="menu_hr_root"
+                sequence="1"/>
+
+        <menuitem
+                id="menu_non_executive_employees"
+                name="Non-Executives"
+                action="non_executive_employees_act_window"
+                parent="menu_hr_employees"
+                sequence="1"/>
+
+        <menuitem
+                id="menu_executive_employees"
+                action="executive_employees_act_window"
+                parent="menu_hr_employees"
+                groups="hr_executive_processor,msd_administrators"
+                sequence="2"/>
+
+        <menuitem
+                id="menu_hr_tasks"
+                name="Tasks"
+                parent="menu_hr_root"
+                groups="hr.group_hr_user,msd_administrators"
+                sequence="4"/>
+
+        <menuitem
+                id="hr_menu_hr_reports"
+                name="Reporting"
+                parent="menu_hr_root"
+                sequence="5"/>
+
+        <menuitem
+                id="menu_human_resources_configuration"
+                name="Configuration"
+                parent="menu_hr_root"
+                groups="hr.group_hr_manager,msd_administrators"
+                sequence="100"/>
+
+        <menuitem
+                id="menu_human_resources_work_schedules"
+                name="Work Schedules"
+                parent="menu_human_resources_configuration"
+                groups="hr.group_hr_manager,msd_administrators"
+                action="resource.action_resource_calendar_form"
+                sequence="100"/>
+
+        <menuitem
+                id="menu_hr_department_kanban"
+                action="hr.hr_department_kanban_action"
+                parent="menu_human_resources_configuration"
+                sequence="1"
+                groups="hr.group_hr_user,msd_administrators"/>
+
+        <menuitem
+                id="menu_hr_jobs"
+                action="hr.action_hr_job"
+                parent="menu_human_resources_configuration"
+                groups="hr.group_hr_user,msd_administrators"/>
+
+        <menuitem
+                id="menu_hr_resume_types"
+                name="Resume Types"
+                action="hr_skills.hr_resume_type_action"
+                parent="menu_human_resources_configuration"
+                groups="hr.group_hr_user,msd_administrators"/>
+
+        <!--        <menuitem-->
+        <!--                id="menu_hr_doc_types"-->
+        <!--                action="oh_employee_documents_expiry.hr_employee_document_type_action"-->
+        <!--                parent="menu_human_resources_configuration"-->
+        <!--                groups="hr.group_hr_user,msd_administrators"/>-->
+    </data>
+</odoo>

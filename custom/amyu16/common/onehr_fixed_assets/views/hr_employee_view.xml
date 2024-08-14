@@ -1,0 +1,94 @@
+<odoo>
+    <data>
+        <record id="hrad_view_employee_form_fa" model="ir.ui.view">
+            <field name="name">hrad.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Assigned FA">
+                        <field name="fa_ids" readonly="1">
+                            <tree create="false" delete="false" editable="false"
+                                  default_order="name desc">
+                                <field name="company_id"/>
+                                <field name="name" string="Code"/>
+                                <field name="short_description" string="Description"/>
+                                <field name="remarks"/>
+                                <field name="date_issued"/>
+                                <field name="fa_location_id"/>
+                                <field name="group_id"/>
+                                <field name="asset_qty"/>
+                                <field name="status"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <h1>
+                                        <group>
+                                            <group>
+                                                <field name="name" readonly="1" nolabel="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="short_description" readonly="1" nolabel="1"
+                                                       class="oe_read_only"/>
+                                            </group>
+                                        </group>
+                                    </h1>
+                                    <notebook>
+                                        <page string="Asset Detail">
+                                            <group>
+                                                <group>
+                                                    <field name="short_description" class="oe_edit_only"/>
+                                                    <field name="full_description"/>
+                                                    <field name="remarks"/>
+                                                    <field name="date_purchased"/>
+                                                </group>
+                                                <group>
+                                                    <field name="date_issued"/>
+                                                    <field name="fa_location_id"/>
+                                                    <field name="group_id"/>
+                                                    <field name="asset_qty"/>
+                                                    <field name="uom_id"/>
+                                                    <field name="status"/>
+                                                    <field name="unit_price"/>
+                                                </group>
+                                            </group>
+                                            <group string="Asset Cancellation Info">
+                                                <field name="cancelled"/>
+                                                <field name="date_cancelled"/>
+                                                <field name="cancel_notes"/>
+                                            </group>
+                                        </page>
+                                        <page string="Movement Logs">
+                                            <field name="fa_movement_ids">
+                                                <tree create="false" delete="false" editable="false"
+                                                      default_order="date_stamp desc">
+                                                    <field name="date_stamp"/>
+                                                    <field name="user_id"/>
+                                                    <field name="from_employee_id"/>
+                                                    <field name="to_employee_id"/>
+                                                    <field name="from_department_id"/>
+                                                    <field name="to_department_id"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                        <page string="Code Update Logs">
+                                            <field name="fa_code_ids">
+                                                <tree create="false" delete="false" editable="false"
+                                                      default_order="date_stamp desc">
+                                                    <field name="date_stamp"/>
+                                                    <field name="user_id"/>
+                                                    <field name="from_code"/>
+                                                    <field name="to_code"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

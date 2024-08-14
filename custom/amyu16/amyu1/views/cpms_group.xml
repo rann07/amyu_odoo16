@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="module_category_cpms" model="ir.module.category">
+        <field name="name">CPMS Access</field>
+        <field name="description">Category for CPMS</field>
+    </record>
+
+    <record id="associate_group" model="res.groups">
+        <field name="name">Associates</field>
+        <field name="category_id" ref="module_category_cpms"/>
+    </record>
+
+    <record id="supervisor_group" model="res.groups">
+        <field name="name">Supervisor</field>
+        <field name="category_id" ref="module_category_cpms"/>
+    </record>
+
+    <record id="manager_group" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_cpms"/>
+    </record>
+
+     <record id="director_group" model="res.groups">
+        <field name="name">Director</field>
+        <field name="category_id" ref="module_category_cpms"/>
+    </record>
+
+    <record id="cluster_group" model="res.groups">
+        <field name="name">Partner</field>
+        <field name="category_id" ref="module_category_cpms"/>
+    </record>
+
+    <record id="administrator_group" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_category_cpms"/>
+    </record>
+
+    <record id="cpms_client_profile_rule" model="ir.rule">
+        <field name="name">User Own Client Documents</field>
+        <field name="model_id" ref="model_client_profile"/>
+        <field name="domain_force">['|',('user_id','=',False),('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('associate_group'))]"/>
+    </record>
+
+    <record id="cpms_associate_profile_rule" model="ir.rule">
+        <field name="name">User Own Profile</field>
+        <field name="model_id" ref="model_associate_profile"/>
+        <field name="domain_force">['|',('user_id','=',False),('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('associate_group'))]"/>
+    </record>
+
+    <record id="supervisor_client_profile_rule" model="ir.rule">
+        <field name="name">Supervisor see Client Documents</field>
+        <field name="model_id" ref="model_client_profile"/>
+        <field name="domain_force">[('supervisor_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('supervisor_group'))]"/>
+    </record>
+
+    <record id="supervisor_associate_profile_rule" model="ir.rule">
+        <field name="name">Supervisor see Profile</field>
+        <field name="model_id" ref="model_associate_profile"/>
+        <field name="domain_force">[('supervisor_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('supervisor_group'))]"/>
+    </record>
+
+    <record id="manager_client_profile_rule" model="ir.rule">
+        <field name="name">Manager see Client Documents</field>
+        <field name="model_id" ref="model_client_profile"/>
+        <field name="domain_force">[('manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('manager_group'))]"/>
+    </record>
+
+    <record id="manager_associate_profile_rule" model="ir.rule">
+        <field name="name">Manager see Profile</field>
+        <field name="model_id" ref="model_associate_profile"/>
+        <field name="domain_force">[('manager_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('manager_group'))]"/>
+    </record>
+
+    <record id="partners_client_profile_rule" model="ir.rule">
+        <field name="name">Partner see Client Documents</field>
+        <field name="model_id" ref="model_client_profile"/>
+        <field name="domain_force">[('lead_partner_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('cluster_group'))]"/>
+    </record>
+
+    <record id="partners_associate_profile_rule" model="ir.rule">
+        <field name="name">Partner see Profile</field>
+        <field name="model_id" ref="model_associate_profile"/>
+        <field name="domain_force">[('lead_partner_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('cluster_group'))]"/>
+    </record>
+
+     <record id="director_client_profile_rule" model="ir.rule">
+        <field name="name">Director see Client Documents</field>
+        <field name="model_id" ref="model_client_profile"/>
+        <field name="domain_force">[('director_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('director_group'))]"/>
+    </record>
+
+    <record id="director_associate_profile_rule" model="ir.rule">
+        <field name="name">Director see Profile</field>
+        <field name="model_id" ref="model_associate_profile"/>
+        <field name="domain_force">[('director_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('director_group'))]"/>
+    </record>
+
+</odoo>

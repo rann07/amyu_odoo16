@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="fa_multi_comp_rule" model="ir.rule">
+        <field name="name">Fixed Assets multi company rule</field>
+        <field name="model_id" ref="model_onehr_fixed_assets"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="fa_location_multi_comp_rule" model="ir.rule">
+        <field name="name">Fixed Assets Location multi company rule</field>
+        <field name="model_id" ref="model_onehr_fa_location"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="fa_uom_multi_comp_rule" model="ir.rule">
+        <field name="name">Fixed Assets UoM multi company rule</field>
+        <field name="model_id" ref="model_onehr_fa_uom"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="fa_status_multi_comp_rule" model="ir.rule">
+        <field name="name">Fixed Assets Status multi company rule</field>
+        <field name="model_id" ref="model_onehr_fa_status"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="fa_group_multi_comp_rule" model="ir.rule">
+        <field name="name">Fixed Assets Grouping multi company rule</field>
+        <field name="model_id" ref="model_onehr_fa_group"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

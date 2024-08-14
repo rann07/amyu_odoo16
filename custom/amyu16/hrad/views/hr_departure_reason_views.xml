@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem name="Departure Reasons"
+                  id="hr_departure_reasons_menu"
+                  parent="menu_human_resources_configuration"
+                  sequence="14"
+                  groups="msd_administrators,hr.group_hr_manager"
+                  action="hr.hr_departure_reason_action"/>
+    </data>
+</odoo>

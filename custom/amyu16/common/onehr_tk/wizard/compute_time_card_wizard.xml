@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="compute_time_card_wizard" model="ir.ui.view">
+            <field name="name">Compute Time Card</field>
+            <field name="model">compute.time.card</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <div>
+                            <button name="action_compute_time_card" string="Compute" type="object"/>
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="compute_time_card_action">
+            <field name="name">Compute Time Card</field>
+            <field name="res_model">compute.time.card</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_compute_time_card"
+                sequence="2"
+                name="Compute Time Card"
+                parent="menu_tk_tasks"
+                action="compute_time_card_action"
+                groups="timekeeper"
+        />
+    </data>
+</odoo>

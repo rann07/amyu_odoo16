@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fa_monitoring_by_group_wizard" model="ir.ui.view">
+            <field name="name">Fixed Assets Monitoring By Group</field>
+            <field name="model">fa.monitoring.by.group.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div>
+                        <group name="filters">
+                            <group name="fields">
+                                <field name="date_filter" default="False"/>
+                                <field name="groups" widget="many2many_tags"/>
+                                <field name="group_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <span>Note: Keeping the fields blank will print fixed assets for all groups.</span>
+                    </div>
+                    <footer>
+                        <div>
+                            <button name="button_export_html" string="View or Export to XLS"
+                                    type="object" default_focus="1" class="oe_highlight"/>
+                            or
+                            <button name="get_report" string="Generate and Preview Report" type="object" class=""/>
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fa_monitoring_by_group_wizard">
+            <field name="name">Fixed Assets Monitoring By Group</field>
+            <field name="res_model">fa.monitoring.by.group.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_fa_monitoring_by_group"
+                name="Fixed Assets Monitoring By Group"
+                parent="onehr_fixed_assets.menu_fa_reporting"
+                action="action_fa_monitoring_by_group_wizard"
+                sequence="3"/>
+
+    </data>
+</odoo>

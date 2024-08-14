@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_time_card_tree" model="ir.ui.view">
+        <field name="name">hr.time.card.tree</field>
+        <field name="model">hr.time.card</field>
+        <field name="arch" type="xml">
+            <tree string="Time Card Data Entry" create="false" edit="false" default_order="date desc">
+                <field name="hr_employee_id"/>
+                <field name="date"/>
+                <field name="time_in" widget="float_time"/>
+                <field name="time_out" widget="float_time"/>
+                <field name="required_time" widget="float_time"/>
+                <field name="reg_hours" widget="float_time"/>
+                <field name="late" widget="float_time"/>
+                <field name="undertime" widget="float_time"/>
+                <field name="absent"/>
+                <field name="ot" widget="float_time"/>
+                <field name="nh" widget="float_time"/>
+                <field name="sh" widget="float_time"/>
+                <field name="rdot" widget="float_time"/>
+                <field name="hr_leave_type_id"/>
+                <field name="leave_qty"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_time_card_form" model="ir.ui.view">
+        <field name="name">hr.time.card.form</field>
+        <field name="model">hr.time.card</field>
+        <field name="arch" type="xml">
+            <form string="Time Card Data Entry" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group string="Employee Info">
+                            <field name="hr_employee_id"
+                                   options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="job_name"/>
+                            <field name="department_name"
+                                   options="{'no_quick_create': True, 'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group string="Attendance Log">
+                            <field name="date"/>
+                            <field name="time_in" widget="float_time"/>
+                            <field name="time_out" widget="float_time"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Computed Values">
+                            <field name="hrs_worked" widget="float_time"/>
+                            <field name="required_time" widget="float_time"/>
+                        </group>
+                        <group string="Breakdown">
+                            <field name="required_time" widget="float_time"/>
+                            <field name="reg_hours" widget="float_time"/>
+                            <field name="late" widget="float_time"/>
+                            <field name="undertime" widget="float_time"/>
+                            <field name="absent"/>
+                            <field name="ot" widget="float_time"/>
+                            <field name="nh" widget="float_time"/>
+                            <field name="sh" widget="float_time"/>
+                            <field name="rdot" widget="float_time"/>
+                            <field name="hr_leave_type_id"/>
+                            <field name="leave_qty"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_time_card_search">
+        <field name="name">Search Time Card</field>
+        <field name="model">hr.time.card</field>
+        <field name="arch" type="xml">
+            <search string="Search Time Card">
+                <field name="hr_employee_id"/>
+                <field name="date"/>
+                <filter name="group_department_name" string="Department" icon="terp-partner"
+                        context="{'group_by':'department_name'}"/>
+                <filter name="group_employee_id" string="Employee" icon="terp-partner"
+                        context="{'group_by':'hr_employee_id'}"/>
+                <filter name="group_date" string="Date" icon="terp-partner"
+                        context="{'group_by':'date'}"/>
+                <filter string="Current Month" name="current_month"
+                        domain="[('date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_time_card_rule" model="ir.rule">
+        <field name="name">Time Card multi company rule</field>
+        <field name="model_id" ref="model_hr_time_card"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="hr_time_card_action" model="ir.actions.act_window">
+        <field name="name">Employee Time Card Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.time.card</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_time_card_tree"/>
+        <field name="context">{'search_default_current_month': 1,'search_default_group_employee_id': 1,
+            'search_default_group_date': 1}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Employee Time Card Data
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hr_time_card"
+              name="Employee Time Card"
+              groups="hr.group_hr_manager,hr.group_hr_user"
+              parent="menu_tk_reports"
+              action="hr_time_card_action"
+              sequence="1"/>
+
+    <record id="hr_time_card_cron" forcecreate='True' model="ir.cron">
+        <field name="name">Compute Time Card</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">8</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_hr_time_card"/>
+        <field name="active">True</field>
+        <field name="state">code</field>
+        <field name="code">model.compute_time_card()</field>
+    </record>
+
+</odoo>

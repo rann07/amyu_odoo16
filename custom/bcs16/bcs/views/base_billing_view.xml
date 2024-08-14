@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="base_billing_tree_view" model="ir.ui.view">
+            <field name="name">base_billing_tree_view</field>
+            <field name="model">base.billing</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="billing_summary_id"/>
+                    <field name="service_fee"/>
+                    <field name="ope_rate"/>
+                    <field name="ope"/>
+                    <field name="vat"/>
+                    <field name="amount"/>
+                    <field name="remarks"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_base_billing_form" model="ir.ui.view">
+            <field name="name">base.billing.form</field>
+            <field name="model">base.billing</field>
+            <field name="arch" type="xml">
+                <form string="Base Billing">
+                    <sheet>
+                        <group>
+                            <field name="billing_summary_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            <field name="service_fee"/>
+                            <field name="ope_rate"/>
+                            <field name="ope" readonly="1"/>
+                            <field name="vat"/>
+                            <field name="amount" readonly="1"/>
+                            <field name="remarks"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="base_billing_view_action" model="ir.actions.act_window">
+            <field name="name">Base Billing Summary</field>
+            <field name="res_model">base.billing</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

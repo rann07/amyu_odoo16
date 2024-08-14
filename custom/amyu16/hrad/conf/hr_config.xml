@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+
+        <record id="msd_administrators" model="res.groups">
+            <field name="name">MSD Administrators</field>
+        </record>
+
+        <record id="hr_executive_processor" model="res.groups">
+            <field name="name">Executives Processor</field>
+        </record>
+
+        <record id="hr_compen_ben" model="res.groups">
+            <field name="name">Comp &amp; Ben</field>
+        </record>
+
+        <record id="hr_ob_approver" model="res.groups">
+            <field name="name">OB Approvers</field>
+        </record>
+
+        <record id="hr_leave_approver" model="res.groups">
+            <field name="name">Leave Approvers</field>
+        </record>
+
+        <menuitem name="Employee - Deactivated" active="False"
+                  id="hr.menu_hr_root"/>
+
+    </data>
+</odoo>

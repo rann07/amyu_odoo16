@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="module_category_fsms" model="ir.module.category">
+        <field name="name">FSMS Access</field>
+        <field name="description">Category for FSMS</field>
+    </record>
+
+    <record id="administrator_group" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="preparation_group" model="res.groups">
+        <field name="name">Preparation</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="checking_group" model="res.groups">
+        <field name="name">Checking/Final</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="review_group" model="res.groups">
+        <field name="name">Review/Final</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="initial_group" model="res.groups">
+        <field name="name">Initial/Final Approval</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="proofread_group" model="res.groups">
+        <field name="name">Proofread/Final</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="iar_group" model="res.groups">
+        <field name="name">IAR</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="printer_group" model="res.groups">
+        <field name="name">Printing</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="sorter_group" model="res.groups">
+        <field name="name">Sorter</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="qcc_group" model="res.groups">
+        <field name="name">Quality Control Check</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="filing_group" model="res.groups">
+        <field name="name">Filing</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="file_group" model="res.groups">
+        <field name="name">File</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="fsms_user_group" model="res.groups">
+        <field name="name">Associate</field>
+        <field name="category_id" ref="module_category_fsms"/>
+    </record>
+
+    <record id="fsms_staff_rule" model="ir.rule">
+        <field name="name">Associate</field>
+        <field name="model_id" ref="model_task_view"/>
+        <field name="domain_force">['|',('user_id','=',False),('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('fsms_user_group'))]"/>
+    </record>
+
+     <record id="module_category_team" model="ir.module.category">
+        <field name="name">TEAM Access</field>
+        <field name="description">Category for FSMS TEAM</field>
+    </record>
+
+</odoo>

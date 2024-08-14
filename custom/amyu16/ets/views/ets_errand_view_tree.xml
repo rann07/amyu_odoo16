@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="errand_view_tree" model="ir.ui.view">
+        <field name="name">errand.tree</field>
+        <field name="model">errand</field>
+        <field name="arch" type="xml">
+            <tree string="Errands">
+                <field name="ctrl_no"/>
+                <field name="status" 
+                    decoration-success="status == 'in_process'"
+                    decoration-warning="status in ('for_approval', 'pending')"
+                    decoration-danger="status == 'closed'" 
+                    widget="badge" />
+                <field name="date_requested"/>
+                <field name="requested_by"/>
+                <field name="client"/>
+                <field name="deadline"/>
+                <field name="location"/>
+                <field name="liaison"/>
+                <!-- <field name="is_govt"/> -->
+                <field name="type_of_request"/>
+                <field name="company_agency_payee"/>
+
+                <field name="special_instructions"/>
+                <field name="date_completed"/>
+                <field name="remarks"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

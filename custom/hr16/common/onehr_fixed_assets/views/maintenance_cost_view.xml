@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="maintenance_cost_tree">
+            <field name="name">Maintenance Cost</field>
+            <field name="model">maintenance.cost</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="mr_id"/>
+                    <field name="cost_type_id"/>
+                    <field name="name"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="maintenance_cost_search">
+            <field name="name">Search Maintenance Cost</field>
+            <field name="model">maintenance.cost</field>
+            <field name="arch" type="xml">
+                <search string="Maintenance Costs">
+                    <field name="name"/>
+                    <group expand="1" string="Group by">
+                        <filter string="Type" name="cost_type_group" domain="[]"
+                                context="{'group_by':'cost_type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="maintenance_cost_action" model="ir.actions.act_window">
+            <field name="name">Maintenance Cost Action</field>
+            <field name="res_model">maintenance.cost</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="maintenance_cost_search"/>
+            <field name="context">{"search_default_cost_type_group":1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Maintenance Costs
+                </p>
+            </field>
+        </record>
+
+        <record id="maintenance_cost_type_action" model="ir.actions.act_window">
+            <field name="name">Maintenance Cost Type Action</field>
+            <field name="res_model">maintenance.cost.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Maintenance Cost Type
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_maintenance_cost_type"
+                name="Cost Types"
+                parent="maintenance.menu_maintenance_configuration"
+                action="maintenance_cost_type_action"/>
+    </data>
+</odoo>

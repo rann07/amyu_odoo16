@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="fa_group_action" model="ir.actions.act_window">
+        <field name="name">Group</field>
+        <field name="res_model">onehr.fa.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new Fixed Asset Grouping
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_group_tree">
+        <field name="name">Fixed Assets Grouping Tree</field>
+        <field name="model">onehr.fa.group</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_group_form">
+        <field name="name">Fixed Assets Grouping Form</field>
+        <field name="model">onehr.fa.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fa_status_action" model="ir.actions.act_window">
+        <field name="name">Status</field>
+        <field name="res_model">onehr.fa.status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new Fixed Asset Status
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_status_tree">
+        <field name="name">Fixed Assets Status Tree</field>
+        <field name="model">onehr.fa.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_status_form">
+        <field name="name">Fixed Assets Status Form</field>
+        <field name="model">onehr.fa.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fa_uom_action" model="ir.actions.act_window">
+        <field name="name">Unit of Measure</field>
+        <field name="res_model">onehr.fa.uom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new Fixed Asset Unit of Measure
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_uom_tree">
+        <field name="name">Fixed Assets UoM Tree</field>
+        <field name="model">onehr.fa.uom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_uom_form">
+        <field name="name">Fixed Assets UoM Form</field>
+        <field name="model">onehr.fa.uom</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fa_location_action" model="ir.actions.act_window">
+        <field name="name">Location</field>
+        <field name="res_model">onehr.fa.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new Fixed Asset Location
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_location_tree">
+        <field name="name">Fixed Assets Location Tree</field>
+        <field name="model">onehr.fa.location</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_location_form">
+        <field name="name">Fixed Assets Location Form</field>
+        <field name="model">onehr.fa.location</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_fa_config"
+            name="Configuration"
+            groups="onehr_fa_manager,onehr_fa_users,base.group_user"
+            parent="menu_fa_root"
+            sequence="99"/>
+    <menuitem
+            id="menu_fa_location"
+            name="Location"
+            parent="menu_fa_config"
+            action="fa_location_action"
+            sequence="2"/>
+    <menuitem
+            id="menu_fa_uom"
+            name="Unit of Measure"
+            parent="menu_fa_config"
+            action="fa_uom_action"
+            sequence="1"/>
+    <menuitem
+            id="menu_fa_status"
+            name="Status"
+            parent="menu_fa_config"
+            action="fa_status_action"
+            sequence="3"/>
+    <menuitem
+            id="menu_fa_group"
+            name="Groups"
+            parent="menu_fa_config"
+            action="fa_group_action"
+            sequence="4"/>
+
+</odoo>

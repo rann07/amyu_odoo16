@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem
+                id="maintenance.menu_maintenance_title"
+                name="Maintenance"
+                web_icon="maintenance,static/description/icon.png"
+                sequence="160"/>
+
+        <record id="fa_maintenance_equipment_tree" model="ir.ui.view">
+            <field name="name">Fixed Assets - Equipment Tree</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='employee_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='department_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='assign_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='company_id']" position="after">
+                    <field name="assigned_to"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fa_maintenance_equipment_kanban" model="ir.ui.view">
+            <field name="name">Fixed Assets - Equipment Kanban</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="replace">
+                    <kanban sample="1" create="false">
+                        <field name="name"/>
+                        <field name="color"/>
+                        <field name="technician_user_id"/>
+                        <field name="category_id"/>
+                        <field name="serial_no"/>
+                        <field name="model_id"/>
+                        <field name="maintenance_ids"/>
+                        <field name="maintenance_open_count"/>
+                        <field name="next_action_date"/>
+                        <field name="activity_ids"/>
+                        <field name="activity_state"/>
+                        <field name="assigned_to"/>
+                        <field name="plate_number"/>
+                        <field name="conduction_sticker"/>
+                        <progressbar field="activity_state"
+                                     colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                        <templates>
+                            <t t-name="kanban-tooltip">
+                                <ul class="oe_kanban_tooltip">
+                                    <li t-if="record.serial_no.raw_value">
+                                        <b>Serial Number:</b>
+                                        <t t-esc="record.serial_no.value"/>
+                                    </li>
+                                    <li t-if="record.model_id.raw_value">
+                                        <b>Model:</b>
+                                        <t t-esc="record.model_id.value"/>
+                                    </li>
+                                </ul>
+                            </t>
+                            <t t-name="kanban-box">
+                                <div t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click">
+                                    <div class="o_dropdown_kanban dropdown" t-if="!selection_mode">
+
+                                        <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown"
+                                           data-display="static" href="#" aria-label="Dropdown menu"
+                                           title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <t t-if="widget.editable">
+                                                <a role="menuitem" type="edit" class="dropdown-item">Edit...</a>
+                                            </t>
+                                            <t t-if="widget.deletable">
+                                                <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                            </t>
+                                            <div role="separator" class="dropdown-divider"></div>
+                                            <div role="separator" class="dropdown-header">Record Colour</div>
+                                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_content" tooltip="kanban-tooltip">
+                                        <div class="o_kanban_record_top">
+                                            <b class="o_kanban_record_title">
+                                                <h3>
+                                                    <field name="name"/>
+                                                </h3>
+                                            </b>
+                                        </div>
+
+                                        <div class="o_kanban_record_body">
+                                            <div t-if="record.model_id.raw_value">
+                                                <b>Brand/Model:</b>
+                                                <field name="model_id"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="o_kanban_record_body">
+                                            <div t-if="record.assigned_to.raw_value">
+                                                <b>Custodian:</b>
+                                                <field name="assigned_to"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="o_kanban_record_body">
+                                            <div t-if="record.serial_no.raw_value">
+                                                <b>
+                                                    Serial Number:
+                                                </b>
+                                                <field name="serial_no"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="o_kanban_record_body">
+                                            <div t-if="record.plate_number.raw_value">
+                                                <b>
+                                                    Plate Number:
+                                                </b>
+                                                <field name="plate_number"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="o_kanban_record_body">
+                                            <div t-if="record.conduction_sticker.raw_value">
+                                                <b>Conduction Number:</b>
+                                                <field name="conduction_sticker"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="o_kanban_record_bottom">
+                                            <div class="oe_kanban_bottom_left">
+                                                <div class="badge badge-danger"
+                                                     t-if="!selection_mode and record.maintenance_open_count.raw_value">
+                                                    <t t-out="record.maintenance_open_count.raw_value"/>
+                                                    Request
+                                                </div>
+                                                <div class="badge badge-secondary"
+                                                     t-if="!selection_mode and record.next_action_date.raw_value">
+                                                    <t t-out="moment(record.next_action_date.raw_value).format('MMMM Do')"/>
+                                                </div>
+                                            </div>
+                                            <div class="oe_kanban_bottom_right">
+                                                <div class="o_kanban_inline_block" t-if="!selection_mode">
+                                                    <field name="activity_ids" widget="kanban_activity"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fa_maintenance_equipment_form" model="ir.ui.view">
+            <field name="name">Fixed Assets - Equipment Form</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/div[2]" position="inside">
+                    <label for="assigned_to" string="Custodian"
+                           attrs="{'invisible':[('assigned_to', '=', False)]}"/>
+                    <h4 attrs="{'invisible':[('assigned_to', '=', False)]}">
+                        <field name="assigned_to"/>
+                    </h4>
+                </xpath>
+                <xpath expr="//field[@name='equipment_assign_to']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='technician_user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='assign_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='scrap_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="make_id"
+                           options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_ref']" position="replace">
+                    <field name="model_id"
+                           domain="[('make_id','=', make_id)]"
+                           options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='model']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='note']" position="attributes">
+                    <attribute name="placeholder">Describe equipment here...</attribute>
+                </xpath>
+                <xpath expr="//field[@name='serial_no']" position="after">
+                    <field name="engine_number"/>
+                    <field name="foton_number"/>
+                    <field name="ftc_code"/>
+                    <field name="conduction_sticker"/>
+                    <field name="plate_number"/>
+                    <field name="year_model"/>
+                    <field name="color"/>
+                    <field name="seats"/>
+                    <field name="transmission"/>
+                    <field name="fuel_type"/>
+                    <field name="km_per_liter"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

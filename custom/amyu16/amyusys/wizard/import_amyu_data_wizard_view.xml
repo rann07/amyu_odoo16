@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="import_amyu_data_wizard_form_view" model="ir.ui.view">
+            <field name="name">import.amyu.data.wizard.form.view</field>
+            <field name="model">import.amyu.data.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="excel_file" />
+                    </group>
+                        <p>Note here.</p>
+                    <group>
+                    </group>
+                    <footer>
+                        <button string="Submit" class="btn-primary" type="object" name="process_import" />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_amyu_data_wizard_action" model="ir.actions.act_window">
+            <field name="name">Import HRIS/CPMS Data</field>
+            <field name="res_model">import.amyu.data.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Human Resources Information System",
+    'summary': "Human Resources And Admin System",
+    'description': "Human Resources And Admin System",
+    'author': "RAnn Aureada",
+    'website': "https://amyucpas.com/",
+    'category': 'Custom',
+    'version': '0.1',
+    'depends': ['base', 'muk_web_theme', 'hr', 'hr_skills', 'hr_organizational_chart',
+                'employee_documents_expiry', 'prt_report_attachment_preview'],
+
+    # always loaded
+    'data': [
+        'conf/hr_settings.xml',
+        'conf/hr_config.xml',
+        'views/res_company_view.xml',
+        'views/hr_view.xml',
+        'wizard/copy_to_compensation_history_wizard.xml',
+        'wizard/reset_leave_wizard.xml',
+        'views/hr_employee_view.xml',
+        'views/hr_declared_holiday_view.xml',
+        'views/hr_philhealth_view.xml',
+        'views/hr_sss_view.xml',
+        'views/hr_loan_type_view.xml',
+        'views/hr_wht_table_view.xml',
+        'views/hr_employee_loan_view.xml',
+        'views/hr_employee_document_view.xml',
+        'views/hr_ob_view.xml',
+        'views/hr_leave_type_view.xml',
+        'views/hr_employee_leave_transaction_view.xml',
+        'views/hr_departure_reason_views.xml',
+        'data/hr_leave_type.xml',
+        'security/ir.model.access.csv',
+    ],
+    'application': True,
+    'license': 'LGPL-3',
+}

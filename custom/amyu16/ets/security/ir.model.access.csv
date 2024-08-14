@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ets_errand,access errand database,ets.model_errand,base.group_user,1,1,1,1
+access_ets_location,access errand location,ets.model_location,base.group_user,1,1,1,1
+access_ets_liaison,access errand liaison,ets.model_liaison,base.group_user,1,1,1,1

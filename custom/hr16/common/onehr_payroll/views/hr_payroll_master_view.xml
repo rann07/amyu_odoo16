@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="payroll_master" model="res.groups">
+        <field name="name">Payroll Master</field>
+    </record>
+
+    <record id="payroll_master_executives" model="res.groups">
+        <field name="name">Payroll Master - Executives</field>
+    </record>
+
+    <record id="hr_payroll_master_form" model="ir.ui.view">
+        <field name="name">hr.payroll.master.form</field>
+        <field name="model">hr.payroll.master</field>
+        <field name="arch" type="xml">
+            <form delte="false">
+                <sheet>
+                    <header>
+                        <h2>
+                            <field name="name" readonly="1"/>
+                        </h2>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="year_of" readonly="1"/>
+                            <field name="month_of" readonly="1"/>
+                            <field name="executives" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="from_date" readonly="1"/>
+                            <field name="to_date" readonly="1"/>
+                            <field name="create_uid" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="hr_payroll_transaction_ids" nolabel="1">
+                        <tree create="false">
+                            <field name="hr_employee_id"/>
+                            <field name="gross_pay"/>
+                            <field name="deductions"/>
+                            <field name="net_pay"/>
+                        </tree>
+                        <form string="Payroll Breakdown">
+                            <sheet>
+                                <header>
+                                    <h3>
+                                        <field name="hr_employee_id" readonly="1"/>
+                                    </h3>
+                                </header>
+                                <group>
+                                    <group>
+                                        <field name="gross_pay" readonly="1" widget="monetary"/>
+                                        <field name="deductions" readonly="1" widget="monetary"/>
+                                    </group>
+                                    <group>
+                                        <label for="net_pay"/>
+                                        <strong>
+                                            <field name="net_pay" readonly="1" widget="monetary"/>
+                                        </strong>
+                                    </group>
+                                </group>
+                                <notebook>
+                                    <page string="Payroll">
+                                        <notebook>
+                                            <page string="Gross">
+                                                <group>
+                                                    <group>
+                                                        <field name="daily_basic_pay" widget="monetary"/>
+                                                        <field name="leave_day"/>
+                                                        <field name="ot_hours" widget="float_time"/>
+                                                        <field name="rd_ot_hours" widget="float_time"/>
+                                                        <field name="nh_hours" widget="float_time"/>
+                                                        <field name="sh_hours" widget="float_time"/>
+                                                        <field name="supplemental" widget="monetary"/>
+                                                        <separator/>
+                                                        <field name="late_hours" widget="float_time"/>
+                                                        <field name="undertime_hours" widget="float_time"/>
+                                                        <field name="absent_days"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="monthly_basic_pay" widget="monetary"/>
+                                                        <field name="leave_pay" widget="monetary"/>
+                                                        <field name="ot_pay" widget="monetary"/>
+                                                        <field name="rd_ot_pay" widget="monetary"/>
+                                                        <field name="nh_pay" widget="monetary"/>
+                                                        <field name="sh_pay" widget="monetary"/>
+                                                        <field name="cola" widget="monetary"/>
+                                                        <separator/>
+                                                        <field name="late_ded" widget="monetary"/>
+                                                        <field name="undertime_ded" widget="monetary"/>
+                                                        <field name="absent_ded" widget="monetary"/>
+                                                    </group>
+                                                </group>
+                                                <group string="Non-taxable allowance per payroll">
+                                                    <field name="allow_misc" widget="monetary"/>
+                                                    <field name="allow_meal" widget="monetary"/>
+                                                    <field name="allow_transpo" widget="monetary"/>
+                                                </group>
+                                            </page>
+                                        </notebook>
+                                    </page>
+                                    <page string="Attendance">
+                                        <field name="hr_payroll_attendance_ids"/>
+                                    </page>
+                                </notebook>
+                            </sheet>
+                        </form>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_payroll_master_tree" model="ir.ui.view">
+        <field name="name">hr.payroll.master.tree</field>
+        <field name="model">hr.payroll.master</field>
+        <field name="arch" type="xml">
+            <tree create="false" default_order="create_date desc">
+                <field name="name"/>
+                <field name="month_of"/>
+                <field name="year_of"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_payroll_master_action" model="ir.actions.act_window">
+        <field name="name">Posted Payroll - Non-executives</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payroll.master</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_payroll_master_tree"/>
+        <!--        <field name="search_view_id" ref="hr_faceid_logs_search"/>-->
+        <field name="domain">[('executives','=',False)]</field>
+    </record>
+
+    <record id="hr_payroll_master_executives_action" model="ir.actions.act_window">
+        <field name="name">Posted Payroll - Executives</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payroll.master</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_payroll_master_tree"/>
+        <!--        <field name="search_view_id" ref="hr_faceid_logs_search"/>-->
+        <field name="domain">[('executives','=',True)]</field>
+    </record>
+
+    <menuitem
+            id="menu_payroll_root"
+            name="Payroll"
+            web_icon="hr_timesheet,static/description/payroll.png"
+            action="hr_payroll_master_action"
+            sequence="8"/>
+    <menuitem
+            id="menu_payroll_maintain"
+            name="Maintenance"
+            parent="menu_payroll_root"/>
+    <menuitem
+            id="menu_payroll_tasks"
+            name="Tasks"
+            parent="menu_payroll_root"/>
+    <menuitem
+            id="menu_payroll_reports"
+            name="Reporting"
+            parent="menu_payroll_root"/>
+
+    <menuitem id="menu_payroll_master"
+              name="Posted Payroll - Non-executive"
+              parent="menu_payroll_maintain"
+              action="hr_payroll_master_action"
+              groups="payroll_master,hrad.msd_administrators"
+              sequence="1"/>
+
+    <menuitem id="menu_payroll_master_executives"
+              name="Posted Payroll - Executives"
+              parent="menu_payroll_maintain"
+              action="hr_payroll_master_executives_action"
+              groups="payroll_master_executives,hrad.msd_administrators"
+              sequence="2"/>
+
+    <record id="hr_payroll_master_rule" model="ir.rule">
+        <field name="name">Payroll Master multi company rule</field>
+        <field name="model_id" ref="model_hr_payroll_master"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

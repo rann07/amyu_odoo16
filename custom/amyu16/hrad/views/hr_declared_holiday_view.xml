@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_declared_holiday_tree">
+            <field name="name">Declared Holidays Tree</field>
+            <field name="model">hr.declared.holiday</field>
+            <field name="arch" type="xml">
+                <tree default_order="date desc">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="company_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_declared_holiday_form">
+            <field name="name">Declared Holiday Form</field>
+            <field name="model">hr.declared.holiday</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="date"/>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="company_ids" widget="many2many_tags"
+                                   options="{'no_edit': True, 'no_create': True, 'no_open': True, 'no_quick_create': True}"
+                                   attrs="{'invisible': [('type','=','nh')],'required': [('type','=','sh')]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_declared_holiday_search">
+            <field name="name">Search Declared Holiday</field>
+            <field name="model">hr.declared.holiday</field>
+            <field name="arch" type="xml">
+                <search string="Search Loan Type">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_declared_holiday_action_window">
+            <field name="name">Declared Holidays</field>
+            <field name="res_model">hr.declared.holiday</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_declared_holiday_tree"/>
+            <field name="search_view_id" ref="hr_declared_holiday_search"/>
+        </record>
+
+        <menuitem name="Declared Holidays"
+                  id="hr_declared_holiday_menu"
+                  parent="menu_hr_tasks"
+                  groups="hrad.msd_administrators,hr.group_hr_manager"
+                  action="hr_declared_holiday_action_window"/>
+
+    </data>
+</odoo>

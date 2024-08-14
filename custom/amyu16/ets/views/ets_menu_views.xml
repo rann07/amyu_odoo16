@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_ets_root"
+        name="ETS"
+        action="db_errand_action"/>
+
+    <!-- <menuitem
+        id="menu_errands"
+        name="Errands"
+        parent="menu_ets_root"
+        action="my_errand_action"
+        sequence="1" /> -->
+    <menuitem
+        id="menu_db_errand"
+        name="Errand Database"
+        parent="menu_ets_root"
+        action="db_errand_action"/>
+    <menuitem
+        id="menu_my_errand"
+        name="My Errands"
+        parent="menu_ets_root"
+        action="my_errand_action"/>
+    <menuitem 
+        id="menu_for_approval"
+        name="For Approval"
+        parent="menu_ets_root"
+        action="for_approval_action"/>
+
+    <menuitem 
+        id="menu_others"
+        name="Others"
+        parent="menu_ets_root"/>
+    <menuitem 
+        id="menu_location"
+        name="Location"
+        parent="menu_others"
+        action="location_action"/>
+    <menuitem 
+        id="menu_liaison"
+        name="Liaison"
+        parent="menu_others"
+        action="liaison_action"/>
+</odoo>

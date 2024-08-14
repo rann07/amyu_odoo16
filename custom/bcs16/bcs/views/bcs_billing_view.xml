@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bcs_billing_tree_view" model="ir.ui.view">
+            <field name="name">bcs_billing_tree_view</field>
+            <field name="model">bcs.billing</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="transaction"/>
+                    <field name="client_id"/>
+                    <!-- <field name="collection_ids" widget="many2many_tags"/> -->
+                    <!-- <field name="for_collection_updates"/> -->
+                    <field name="date_billed"/>
+                    <!-- <field name="last_updated"/> -->
+                    <field name="state"/>
+                    <field name="status"/>
+                    <field name="other"/>
+                    <field name="services_id" widget="many2many_tags"/>
+                    <field name="amount"/>
+                    <field name="issued_by"/>
+                    <field name="remarks"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bcs_billing_form_view" model="ir.ui.view">
+            <field name="name">bcs_billing_form_view</field>
+            <field name="model">bcs.billing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!-- <button name="ops_manager_submitted_action" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                groups="bcs.ops_manager"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="fad_supervisor_verified_action" string="Verified" type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to continue to your verification?"
+                                groups="bcs.fad_supervisor"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button name="fsd_manager_approved_action" string="Approved" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your approval?"
+                                groups="bcs.fad_manager"
+                                attrs="{'invisible': [('state', '!=', 'verified')]}"/> -->
+
+                        <!-- FOR TESTING ONLY -->
+                        <button name="ops_manager_submitted_action" string="Submit" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your submission?"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="fad_supervisor_verified_action" string="Verify" type="object"
+                                class="oe_highlight"
+                                confirm="Are you sure you want to continue to your verification?"
+                                attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                        <button name="fsd_manager_approved_action" string="Approve" type="object" class="oe_highlight"
+                                confirm="Are you sure you want to continue to your approval?"
+                                attrs="{'invisible': [('state', '!=', 'verified')]}"/>
+
+                        <field name="state" widget="statusbar" status_invisible="draft,submitted,verified,approved"
+                               attrs="{'invisible':[('state', '==','approved')]}"/>
+                    </header>
+                    <header attrs="{'invisible': [('state', '!=', 'approved')]}">
+
+                        <!-- FOR TESTING ONLY -->
+                        <button name="sent_to_client" string="Billing Sent" type="object" class="oe_highlight"
+                                confirm="Are you sure to proceed to the next status? (Sent to client)"
+                                attrs="{'invisible': [('status', '!=', 'not_sent')]}"/>
+
+                        <button name="client_received" string="Client Received" type="object" class="oe_highlight"
+                                confirm="Are you sure to proceed to the next status? (Client Received)"
+                                attrs="{'invisible': [('status', '!=', 'sent_to_client')]}"/>
+
+                        <field name="status" widget="statusbar" clickable="True"
+                               status_invisible="not_sent,sent_email,send_errand,client_received"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="transaction"/>
+                            <field name="client_id" attrs="{'readonly': [('status','=','sent_to_client')]}"/>
+                            <!-- <field name="collection_ids" widget="many2many_tags"
+                                   options="{'no_create': True,'no_open': True }"/> -->
+                            <!-- <field name="billing_collection_updates"/> -->
+                            <field name="date_billed" attrs="{'readonly': [('status','=','sent_to_client')]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('status','=','not_sent')]}" col="4">
+                            <group>
+                                <field name="sent_with_email" attrs="{'readonly': [('status','=','client_received')]}"/>
+                            </group>
+                            <group>
+                                <field name="sent_with_errand"
+                                       attrs="{'readonly': [('status','=','client_received')]}"/>
+                            </group>
+                            <group string=""></group>
+                            <group string=""></group>
+                        </group>
+                        <group>
+                            <field name="other" attrs="{'readonly': [('status','=','sent_to_client')]}"/>
+                            <field name="services_id" widget="many2many_tags"
+                                   attrs="{'readonly': [('status','=','sent_to_client')]}"/>
+                            <field name="amount" attrs="{'readonly': [('status','=','sent_to_client')]}"/>
+                            <field name="issued_by" attrs="{'readonly': [('status','=','sent_to_client')]}"/>
+                        </group>
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="bcs_billing_view_action" model="ir.actions.act_window">
+            <field name="name">Billing</field>
+            <field name="res_model">bcs.billing</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','approved')]</field>
+            <field name="view_id" ref="bcs_billing_tree_view"/>
+        </record>
+
+        <record id="bcs_all_billing_view_action" model="ir.actions.act_window">
+            <field name="name">Billing</field>
+            <field name="res_model">bcs.billing</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="bcs_billing_tree_view"/>
+        </record>
+
+        <record id="bcs_billing_form_action" model="ir.actions.act_window">
+            <field name="name">Billing</field>
+            <field name="res_model">bcs.billing</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="bcs_billing_form_view"/>
+            <field name="domain">[('state','=','draft')]</field>
+        </record>
+
+        <record model="ir.sequence" id="billing_id_seq">
+            <field name="name">Billing Transaction ID Sequence"</field>
+            <field name="code">billing.id.seq</field>
+            <field name="company_id" eval="False"/>
+            <field name="number_next">1</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

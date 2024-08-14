@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="compute_payroll_executives_wizard" model="ir.ui.view">
+            <field name="name">Compute Payroll - Executives</field>
+            <field name="model">compute.payroll.executives</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="month_of"/>
+                            <field name="year_of"/>
+                        </group>
+                        <group>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <div>
+                            <button name="action_compute_payroll" string="Compute" type="object"
+                            confirm="Please be informed that payroll posting can take a while to complete. Click OK button to begin."/>
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="compute_payroll_executives_action">
+            <field name="name">Compute Payroll - Executives</field>
+            <field name="res_model">compute.payroll</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_payroll_post_ex"
+                sequence="2"
+                name="Compute Payroll - Executives"
+                parent="menu_payroll_tasks"
+                action="compute_payroll_executives_action"
+                groups="payroll_master_executives,hrad.msd_administrators"
+        />
+    </data>
+</odoo>

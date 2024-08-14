@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="supervisor_client_profile_tree_view" model="ir.ui.view">
+            <field name="name">supervisor.client.profile.tree.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <tree create="False" export_xlsx="0">
+                    <field name="name"/>
+                    <field name="client_system_generated"/>
+                    <field name="user_id"/>
+                    <field name="cluster_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="client_profile_supervisor_action" model="ir.actions.act_window">
+            <field name="name">For Verification </field>
+            <field name="res_model">client.profile</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','supervisor')]</field>
+            <field name="view_id" ref="supervisor_client_profile_tree_view"/>
+        </record>
+    </data>
+</odoo>

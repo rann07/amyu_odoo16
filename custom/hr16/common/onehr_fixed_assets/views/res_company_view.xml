@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="res_company_fa_form" model="ir.ui.view">
+            <field name="name">FA - Company Form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="COS/FOS/MOS Server Parameters">
+                        <group>
+                            <group>
+                                <field name="has_one"/>
+                                <field name="host_ip"
+                                       attrs="{'invisible': [('has_one','=',False)],'required': [('has_one','=',True)]}"/>
+                                <field name="db_name"
+                                       attrs="{'invisible': [('has_one','=',False)],'required': [('has_one','=',True)]}"/>
+                                <field name="username"
+                                       attrs="{'invisible': [('has_one','=',False)],'required': [('has_one','=',True)]}"/>
+                                <field name="passwd" password="True"
+                                       attrs="{'invisible': [('has_one','=',False)],'required': [('has_one','=',True)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

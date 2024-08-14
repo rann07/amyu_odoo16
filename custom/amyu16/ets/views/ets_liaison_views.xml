@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="liaison_view_form" model="ir.ui.view">
+        <field name="name">liaison.form</field>
+        <field name="model">liaison</field>
+        <field name="arch" type="xml">
+            <form string="Liaison Form">
+                <sheet>
+                    <group>
+                        <field name="employee_id" options="{'no_create': True, 'no_create_edit':True}" />
+                        <field name="location_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="liaison_view_tree" model="ir.ui.view">
+        <field name="name">liaison.tree</field>
+        <field name="model">liaison</field>
+        <field name="arch" type="xml">
+            <tree string="Liaison">
+                <field name="employee_id"/>
+                <field name="location_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="liaison_action" model="ir.actions.act_window">
+        <field name="name">Liaison</field>
+        <field name="res_model">liaison</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

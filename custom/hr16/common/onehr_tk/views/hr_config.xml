@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="timekeeper" model="res.groups">
+            <field name="name">Timekeeper</field>
+        </record>
+        <record id="hr_ot_processor" model="res.groups">
+            <field name="name">Process Overtime Requests</field>
+        </record>
+    </data>
+</odoo>

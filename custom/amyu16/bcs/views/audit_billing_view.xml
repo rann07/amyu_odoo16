@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="audit_billing_tree_view" model="ir.ui.view">
+            <field name="name">audit_billing_tree_view</field>
+            <field name="model">audit.billing</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="billing_month"/>
+                    <field name="payment_term"/>
+                    <field name="details"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="audit_billing_form_view" model="ir.ui.view">
+            <field name="name">audit_billing_form_view</field>
+            <field name="model">audit.billing</field>
+            <field name="inherit_id" ref="bcs.view_base_billing_form"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="billing_month"/>
+                            <field name="payment_term"/>
+                            <field name="details"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="audit_billing_view_action" model="ir.actions.act_window">
+            <field name="name">Audit Billing Summary</field>
+            <field name="res_model">audit.billing</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="audit_billing_tree_view"/>
+        </record>
+    </data>
+</odoo>

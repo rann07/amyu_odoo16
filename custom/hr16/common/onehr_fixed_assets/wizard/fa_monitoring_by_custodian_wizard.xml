@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fa_monitoring_by_custodian_wizard" model="ir.ui.view">
+            <field name="name">Fixed Assets Monitoring By Custodian</field>
+            <field name="model">fa.monitoring.by.custodian.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div>
+                        <group name="filters">
+                            <group name="fields">
+                                <field name="date_filter" default="False"/>
+                                <field name="custodians" widget="many2many_tags_avatar"/>
+                                <field name="custodian_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <span>Note: Keeping the fields blank will print fixed assets for all employees.</span>
+                    </div>
+                    <footer>
+                        <div>
+                            <button name="button_export_html" string="View or Export to XLS"
+                                    type="object" default_focus="1" class="oe_highlight"/>
+                            or
+                            <button name="get_report" string="Generate and Preview Report" type="object"/>
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fa_monitoring_by_custodian_wizard">
+            <field name="name">Fixed Assets Monitoring By Custodian</field>
+            <field name="res_model">fa.monitoring.by.custodian.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_fa_monitoring_by_custodian"
+                name="Fixed Assets Monitoring By Custodian"
+                parent="onehr_fixed_assets.menu_fa_reporting"
+                action="action_fa_monitoring_by_custodian_wizard"
+                sequence="2"/>
+
+    </data>
+</odoo>

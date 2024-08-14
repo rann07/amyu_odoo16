@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_loan_multi_comp_rule" model="ir.rule">
+            <field name="name">Employee Loan multi company rule</field>
+            <field name="model_id" ref="model_hr_employee_loan"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hr_employee_loan_tree" model="ir.ui.view">
+            <field name="name">Employee Loans List</field>
+            <field name="model">hr.employee.loan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="hr_loan_type_id"/>
+                    <field name="hr_employee_id"/>
+                    <field name="description"/>
+                    <field name="ref"/>
+                    <field name="date_granted"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="deductions_count"/>
+                    <field name="deductions_per_payroll"/>
+                    <field name="remaining_balance"/>
+                    <field name="quantity"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_loan_form" model="ir.ui.view">
+            <field name="name">Employee Loans Form</field>
+            <field name="model">hr.employee.loan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="hr_loan_type_id"
+                                       options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                                <field name="hr_employee_id"
+                                       options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                                <field name="description"/>
+                                <field name="ref"/>
+                                <field name="date_granted"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+
+                            </group>
+                            <group>
+                                <field name="deductions_count"/>
+                                <field name="deductions_per_payroll"/>
+                                <field name="remaining_balance"/>
+                                <field name="quantity"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_employee_loan_action_window">
+            <field name="name">Loans &amp; Advances</field>
+            <field name="res_model">hr.employee.loan</field>
+            <field name="view_mode">tree,form</field>
+            <!--            <field name="view_id" ref="hr_declared_holiday_tree"/>-->
+            <!--            <field name="search_view_id" ref="hr_declared_holiday_search"/>-->
+        </record>
+
+        <menuitem name="Employee Loans &amp; Advances"
+                  id="hr_employee_loan_menu"
+                  parent="menu_hr_tasks"
+                  groups="hrad.msd_administrators,hr.group_hr_manager"
+                  action="hr_employee_loan_action_window"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="loa_billing_tree_view" model="ir.ui.view">
+            <field name="name">loa_billing_tree_view</field>
+            <field name="model">loa.billing</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="payment_term"/>
+                    <field name="letter_date"/>
+                    <field name="period_covered"/>
+                    <field name="details"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="loa_billing_form_view" model="ir.ui.view">
+            <field name="name">loa_billing_form_view</field>
+            <field name="model">loa.billing</field>
+            <field name="inherit_id" ref="bcs.view_base_billing_form"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="payment_term"/>
+                            <field name="letter_date"/>
+                            <field name="period_covered"/>
+                            <field name="details"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="loa_billing_view_action" model="ir.actions.act_window">
+            <field name="name">LOA Billing Summary</field>
+            <field name="res_model">loa.billing</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="loa_billing_tree_view"/>
+        </record>
+    </data>
+</odoo>

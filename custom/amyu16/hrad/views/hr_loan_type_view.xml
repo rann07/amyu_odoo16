@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_loan_type_tree">
+            <field name="name">Loan Types Tree</field>
+            <field name="model">hr.loan.type</field>
+            <field name="arch" type="xml">
+                <tree default_order="name">
+                    <field name="name"/>
+                    <field name="active"/>
+                    <field name="care"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_loan_type_form">
+            <field name="name">Loan Type Form</field>
+            <field name="model">hr.loan.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="care"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_loan_type_search">
+            <field name="name">Search Loan Type</field>
+            <field name="model">hr.loan.type</field>
+            <field name="arch" type="xml">
+                <search string="Search Loan Type">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_loan_type_action_window">
+            <field name="name">Loan Types</field>
+            <field name="res_model">hr.loan.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_loan_type_tree"/>
+            <field name="search_view_id" ref="hr_loan_type_search"/>
+        </record>
+
+        <menuitem name="Loan Types"
+                  id="hr_loan_type_menu"
+                  parent="menu_human_resources_configuration"
+                  sequence="13"
+                  groups="msd_administrators,hr.group_hr_manager"
+                  action="hr_loan_type_action_window"/>
+
+        <record id="hrad_loan_type_rule" model="ir.rule">
+            <field name="name">Loan Types multi company rule</field>
+            <field name="model_id" ref="model_hr_loan_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

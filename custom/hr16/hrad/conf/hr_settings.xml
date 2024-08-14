@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record model="res.config.settings" id="hrad_default_settings">
+            <field name="hr_presence_control_login" eval="0"/>
+        </record>
+
+        <function model="res.config.settings" name="execute">
+            <value eval="[ref('hrad.hrad_default_settings')]"/>
+        </function>
+    </data>
+</odoo>

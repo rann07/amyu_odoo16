@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_print_issue_slip" model="ir.actions.report">
+        <field name="name">Print Accountability Form</field>
+        <field name="model">onehr.fixed.assets</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">onehr_fixed_assets.template_print_fixed_assets</field>
+        <field name="report_file">onehr_fixed_assets.template_print_fixed_assets</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+        <record model="ir.actions.server" id="action_server_print_issue_slip">
+            <field name="name">Print Accountability Form</field>
+            <field name="model_id" ref="model_print_issue_slip"/>
+            <field name="state">code</field>
+            <field name="binding_model_id" ref="onehr_fixed_assets.model_onehr_fixed_assets"/>
+            <field name="binding_type">report</field>
+            <field name="code">
+                action = model.print_issue_slip()
+            </field>
+        </record>
+
+    <data>
+        <record id="issue_slip_wizard" model="ir.ui.view">
+            <field name="name">Print Accountability Form</field>
+            <field name="model">print.issue.slip</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="print_date"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <div>
+                            <button name="print_issue_slip" string="Print Issue Slip"
+                                    type="object" default_focus="1" class="oe_highlight"/>
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_print_issue_slip_wizard">
+            <field name="name">Print Issue Slip</field>
+            <field name="res_model">print.issue.slip</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="ph_form" model="ir.ui.view">
+        <field name="name">ph.form</field>
+        <field name="model">philhealth.table</field>
+        <field name="arch" type="xml">
+            <form string="Philhealth">
+                <sheet>
+                    <group col="4">
+                        <field name="salfrom"/>
+                        <field name="salto"/>
+                        <field name="empshare"/>
+                        <field name="emprshare"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ph_tree" model="ir.ui.view">
+        <field name="name">ph.tree</field>
+        <field name="model">philhealth.table</field>
+        <field name="arch" type="xml">
+            <tree string="ph" sample="1">
+                <field name="salfrom"/>
+                <field name="salto"/>
+                <field name="empshare"/>
+                <field name="emprshare"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ph_action" model="ir.actions.act_window">
+        <field name="name">Philhealth Contributions Table</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">philhealth.table</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Philhealth Contributions Table
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="hr_ca_ph"
+              name="Philhealth Contributions Table"
+              parent="menu_human_resources_configuration"
+              action="ph_action"
+              sequence="10"/>
+
+</odoo>

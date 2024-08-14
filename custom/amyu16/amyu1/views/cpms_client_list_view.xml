@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="client_tree_view" model="ir.ui.view">
+            <field name="name">client.tree.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <tree create="False" export_xlsx="0">
+                    <field name="name"/>
+                    <field name="vat"/>
+                    <field name="rdo_code"/>
+                    <field name="registration_number" string="SEC Registration No"/>
+                    <field name="primary_contact_person" string="Contact Person"/>
+                    <field name="primary_contact_email" string="Email Address"/>
+                    <field name="user_id" string="Associate"/>
+                    <field name="supervisor_id" groups="amyu1.associate_group"/>
+                    <field name="supervisor_id" groups="amyu1.manager_group"/>
+                    <field name="supervisor_id" groups="amyu1.cluster_group"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="client_kanban_view" model="ir.ui.view">
+            <field name="name">client.kanban.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <kanban create="False" default_group_by="user_id">
+                    <field name="name"/>
+                    <field name="id"/>
+                    <field name="image_101"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_image">
+                                        <field name="image_101" widget="image" options="{'zoom': True}"/>
+                                    </div>
+                                    <div class="oe_kanban_details">
+                                        <div class="oe_kanban_title">
+                                            <h6>
+                                                <field name="name"/>
+                                            </h6>
+                                        </div>
+                                        <div class="oe_kanban_description">
+                                            <field name="client_system_generated"/>
+                                        </div>
+                                        <span style="font-weight: bold; color: blue;">
+                                            <field name="state"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="client_tree_action" model="ir.actions.act_window">
+            <field name="name">Client List</field>
+            <field name="res_model">client.profile</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_id" ref="client_tree_view"/>
+            <field name="domain">[('state','=','approved')]</field>
+        </record>
+    </data>
+</odoo>

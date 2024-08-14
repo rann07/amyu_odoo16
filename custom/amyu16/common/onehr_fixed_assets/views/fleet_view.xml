@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="onehr_fa_fleet_make_form">
+            <field name="name">Makes and Models</field>
+            <field name="model">onehr.fa.fleet.make</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <label for="name" class="oe_edit_only">Make</label>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <field name="make_ids" nolabel="1" editable="bottom">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="name"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fa_fleet_maintain_make_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Make</field>
+            <field name="res_model">onehr.fa.fleet.make</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Vehicle Make
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_fa_maintenance"
+                name="Maintenance"
+                groups="onehr_fa_manager,onehr_fa_users,base.group_user"
+                parent="menu_fa_root"
+                sequence="2"/>
+        <menuitem
+                id="menu_fa_fleet_maintain"
+                name="Vehicle"
+                parent="menu_fa_maintenance"
+                sequence="1"/>
+
+        <menuitem
+                id="menu_fa_fleet_make_maintain"
+                name="Brands and Models"
+                parent="maintenance.menu_maintenance_configuration"
+                action="fa_fleet_maintain_make_action"
+                sequence="1"/>
+
+    </data>
+</odoo>

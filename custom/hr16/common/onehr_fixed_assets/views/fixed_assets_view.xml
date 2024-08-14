@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.sequence" id="fa_sequence">
+        <field name="name">Fixed Asset Sequence</field>
+        <field name="code">fa.seq</field>
+        <field name="prefix">FA-%(range_year)s-%(range_month)s-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record model="ir.ui.view" id="fa_tree">
+        <field name="name">Fixed Assets Tree</field>
+        <field name="model">onehr.fixed.assets</field>
+        <field name="arch" type="xml">
+            <tree default_order="name desc">
+                <field name="name"/>
+                <field name="custodian"/>
+                <field name="assigned_to"/>
+                <field name="short_description"/>
+                <field name="full_description"/>
+                <field name="remarks"/>
+                <field name="date_issued"/>
+                <field name="date_issued"/>
+                <field name="is_equipment"/>
+                <field name="group_id"/>
+                <field name="asset_qty"/>
+                <field name="uom_id"/>
+                <field name="status"/>
+                <field name="for_leasing"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_form">
+        <field name="name">Fixed Assets Form</field>
+        <field name="model">onehr.fixed.assets</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(set_custodian_act)d" string="Set Custodian"
+                            type="action" class="oe_highlight"/>
+                    <button name="%(action_print_issue_slip_wizard)d"
+                            type="action" string="Print Issue Slip"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="1" nolabel="1"/>
+                    </h1>
+                    <h2>
+                        <field name="full_description" readonly="1" nolabel="1"/>
+                    </h2>
+                    <group string="Custodian">
+                        <group>
+                            <field name="custodian" readonly="1"/>
+                            <field name="hr_employee_id" readonly="1"
+                                   options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('custodian','!=','employee')]}"
+                            />
+                            <field name="non_employee" readonly="1"
+                                   attrs="{'invisible': [('custodian','!=','none')]}"
+                            />
+                            <field name="hr_department_id" readonly="1"
+                                   options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('custodian','!=','department')]}"
+                            />
+                            <field name="hr_department_head" readonly="1"
+                                   options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('custodian','!=','department')]}"
+                            />
+                        </group>
+                    </group>
+                    <notebook name="fa_notebook">
+                        <page string="Asset Detail">
+                            <group>
+                                <group>
+                                    <field name="one_id" invisible="1"/>
+                                    <field name="has_one" invisible="1"/>
+                                    <field name="short_description" class="oe_edit_only"/>
+                                    <field name="full_description"/>
+                                    <field name="brand"/>
+                                    <field name="serial_number"/>
+                                    <field name="remarks"/>
+                                    <field name="date_purchased"/>
+                                    <field name="is_equipment"/>
+                                    <field name="equipment_id" readonly="1"
+                                           attrs="{'invisible': [('is_equipment','=',False)]}"/>
+                                    <field name="with_lapsing" attrs="{'readonly': [('one_id','&gt;',0)]}"/>
+                                    <field name="for_leasing"/>
+                                </group>
+                                <group>
+                                    <field name="date_issued"/>
+                                    <field name="fa_location_id"
+                                           options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                    />
+                                    <field name="group_id"
+                                           options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                    />
+                                    <field name="asset_qty"/>
+                                    <field name="uom_id"
+                                           options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                    />
+                                    <field name="status"
+                                           options="{'no_open': True, 'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"
+                                    />
+                                    <field name="unit_price"/>
+                                </group>
+                            </group>
+                            <group string="Asset Cancellation Info">
+                                <field name="cancelled"/>
+                                <field name="date_cancelled"/>
+                                <field name="cancel_notes"/>
+                            </group>
+                        </page>
+                        <page string="Movement Logs">
+                            <field name="fa_movement_ids">
+                                <tree create="false" delete="false" editable="false" default_order="date_stamp desc">
+                                    <field name="date_stamp"/>
+                                    <field name="user_id"/>
+                                    <field name="from_employee_id"/>
+                                    <field name="to_employee_id"/>
+                                    <field name="from_department_id"/>
+                                    <field name="to_department_id"/>
+                                    <field name="company_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fa_search">
+        <field name="name">Search Fixed Assets</field>
+        <field name="model">onehr.fixed.assets</field>
+        <field name="arch" type="xml">
+            <search string="Fixed Assets">
+                <field name="name"/>
+                <field name="custodian"/>
+                <field name="hr_employee_id"/>
+                <field name="hr_department_id"/>
+                <field name="short_description"/>
+                <field name="full_description"/>
+                <field name="remarks"/>
+                <field name="fa_location_id"/>
+                <field name="group_id"/>
+                <field name="uom_id"/>
+                <field name="status"/>
+                <field name="company_id"/>
+                <filter string="Equipment" name="is_equipment" domain="[('is_equipment','=', True)]"/>
+                <filter string="Non-Equipment" name="is_not_equipment" domain="[('is_equipment','=', False)]"/>
+                <filter string="Active" name="active" domain="[('cancelled','=', False)]"/>
+                <filter string="Inactive" name="inactive" domain="[('cancelled','=', True)]"/>
+                <filter string="Subject for leasing" name="for_leasing" domain="[('for_leasing','=', True)]"/>
+                <group expand="1" string="Group by">
+                    <filter string="Custodian" name="by_custodian" domain="[]" context="{'group_by':'hr_employee_id'}"/>
+                    <filter string="Business Unit" name="by_business_unit" domain="[]"
+                            context="{'group_by':'company_id'}"/>
+                    <filter string="Group" name="by_group" domain="[]" context="{'group_by':'group_id'}"/>
+                    <filter string="Status" name="by_state" domain="[]" context="{'group_by':'status'}"/>
+                    <filter string="Brand" name="by_brand" domain="[]" context="{'group_by':'brand'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="fa_action" model="ir.actions.act_window">
+        <field name="name">Fixed Asset</field>
+        <field name="res_model">onehr.fixed.assets</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="view_id" eval="False"/>
+        <field name="search_view_id" ref="fa_search"/>
+        <field name="context">{"search_default_active":1}</field>
+        <field name="domain">[('company_id','=',allowed_company_ids[0])]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new Fixed Asset
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_fa_root"
+            name="Fixed Assets"
+            groups="onehr_fa_manager,onehr_fa_users,base.group_user"
+            web_icon="website_partner,static/description/icon.png"
+            action="fa_action"
+            sequence="15"/>
+
+    <menuitem
+            id="menu_fa_reporting"
+            name="Reporting"
+            parent="menu_fa_root"
+            sequence="98"/>
+
+</odoo>

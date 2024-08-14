@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="client_profile_kanban_view" model="ir.ui.view">
+            <field name="name">client.profile.kanban.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <kanban create="false">
+                    <field name="state"/>
+                    <field name="name"/>
+                    <field name="id"/>
+                    <field name="image_101"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <!--                            <div t-attf-class="oe_kanban_global_click">-->
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_image">
+                                    <field name="image_101" widget="image" options="{'zoom': True}"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <div class="oe_kanban_title">
+                                        <h6>
+                                            <field name="name"/>
+                                        </h6>
+                                    </div>
+                                    <div class="oe_kanban_description">
+                                        <field name="client_system_generated"/>
+                                    </div>
+                                    <span style="font-weight: bold; color: blue;">
+                                        <field name="state"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <!--                            </div>-->
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!--        <record id="client_status_graph_view" model="ir.ui.view">-->
+        <!--            <field name="name">client.status.graph.view</field>-->
+        <!--            <field name="model">client.profile</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <graph disable_linking="True">-->
+        <!--                    <field name="state_sequence" readonly="1"/>-->
+        <!--                </graph>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="client_status_tree_view" model="ir.ui.view">
+            <field name="name">client.status.tree.view</field>
+            <field name="model">client.profile</field>
+            <field name="arch" type="xml">
+                <tree create="False" export_xlsx="0">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="state"
+                           decoration-muted="state == 'draft'"
+                           decoration-info="state == 'supervisor'"
+                           decoration-primary="state == 'manager'"
+                           decoration-success="state == 'approved'"
+                           widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="dashboard_client_profile_action" model="ir.actions.act_window">
+            <field name="name">Progress Status</field>
+            <field name="res_model">client.profile</field>
+            <field name="view_mode">tree,kanban</field>
+            <field name="view_id" ref="client_status_tree_view"/>
+        </record>
+    </data>
+</odoo>
