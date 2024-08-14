@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="module_category_bcs" model="ir.module.category">
+        <field name="name">BCS Access</field>
+        <field name="description">Category for BCS</field>
+    </record>
+
+    <record id="ops_manager" model="res.groups">
+        <field name="name">Ops Manager</field>
+        <field name="category_id" ref="module_category_bcs"/>
+    </record>
+
+    <record id="fad_supervisor" model="res.groups">
+        <field name="name">FAD Supervisor</field>
+        <field name="category_id" ref="module_category_bcs"/>
+    </record>
+
+    <record id="fad_manager" model="res.groups">
+        <field name="name">FAD Manager</field>
+        <field name="category_id" ref="module_category_bcs"/>
+    </record>
+</odoo>

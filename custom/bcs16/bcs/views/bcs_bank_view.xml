@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bank_view_form" model="ir.ui.view">
+        <field name="name">bank.form</field>
+        <field name="model">bank</field>
+        <field name="arch" type="xml">
+            <form string="Bank Form">
+                <sheet>
+                    <group>
+                        <field name="bank_type" widget="radio" options="{'horizontal': True}"/>
+                        <field name="name" placeholder="Bank name and branch"
+                               attrs="{'invisible': [('bank_type','!=','physical')] }"/>
+                        <field name="name" placeholder="Online bank"
+                               attrs="{'invisible': [('bank_type','!=','online')] }"/>
+                        <field name="address" attrs="{'invisible': [('bank_type','!=','physical')] }"/>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bank_view_tree" model="ir.ui.view">
+        <field name="name">bank.tree</field>
+        <field name="model">bank</field>
+        <field name="arch" type="xml">
+            <tree string="Bank">
+                <field name="name"/>
+                <field name="bank_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="bank_action" model="ir.actions.act_window">
+        <field name="name">Bank</field>
+        <field name="res_model">bank</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="client_billing_info_view_form" model="ir.ui.view">
+        <field name="name">client.billing.info.form</field>
+        <field name="model">client.billing.info</field>
+        <field name="arch" type="xml">
+            <form string="Client Billing Info Form">
+                <sheet>
+                    <group>
+                        <field name="client"/>
+                        <field name="preferred_billing_method"/>
+                        <field name="preferred_payment_method"/>
+                        <field name="payment_bank_id"
+                               attrs="{'invisible': [('preferred_payment_method','=','cash')] }"/>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="client_billing_info_view_tree" model="ir.ui.view">
+        <field name="name">client.billing.info.tree</field>
+        <field name="model">client.billing.info</field>
+        <field name="arch" type="xml">
+            <tree string="Client Billing Info">
+                <field name="client"/>
+                <field name="preferred_billing_method"/>
+                <field name="preferred_payment_method"/>
+                <field name="payment_bank_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="client_billing_info_action" model="ir.actions.act_window">
+        <field name="name">Client Billing Info</field>
+        <field name="res_model">client.billing.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>
